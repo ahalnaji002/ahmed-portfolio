@@ -9,6 +9,9 @@ export const projects = [
     overview:
       "A web-based family registration platform designed to collect, organize, and manage family data through a secure registration system and admin dashboard.",
 
+    description:
+      "A secure family registry platform for organizing records, managing registrations, and exporting structured data.",
+
     challenge:
       "Collecting and managing large amounts of family information manually is difficult and requires an organized digital solution.",
 
@@ -24,7 +27,7 @@ export const projects = [
 
     tech: ["React", "Node.js", "Express.js", "MySQL", "JWT"],
 
-    image: "/projects/salman.png",
+    image: "/projects/salman.webp",
 
     liveDemo: "",
 
@@ -40,6 +43,9 @@ export const projects = [
 
     overview:
       "A healthcare management platform that connects patients, doctors, NGOs, and administrators through a centralized system for managing medical information and assistance workflows.",
+
+    description:
+      "A centralized healthcare platform connecting patients, doctors, NGOs, and administrators through organized medical workflows.",
 
     challenge:
       "Healthcare systems require organized communication between different roles while maintaining structured medical records and efficient assistance management.",
@@ -58,7 +64,7 @@ export const projects = [
 
     tech: ["React", "Node.js", "Express.js", "MySQL", "JWT"],
 
-    image: "/projects/hcms.png",
+    image: "/projects/hcms.webp",
 
     github: "",
 
@@ -87,12 +93,7 @@ export const projects = [
       "Data verification",
       "Distribution tracking",
     ],
-    gallery: [
-      "/projects/barq-1.png",
-      "/projects/barq-2.png",
-      "/projects/barq-3.png",
-    ],
-    image: "/projects/barq.png",
+    image: "/projects/barq.webp",
     featured: false,
   },
 
@@ -127,13 +128,7 @@ export const projects = [
       "Firebase Authentication",
     ],
 
-    gallery: [
-      "/projects/shop-1.png",
-      "/projects/shop-2.png",
-      "/projects/shop-3.png",
-    ],
-
-    image: "/projects/shop.png",
+    image: "/projects/shop.webp",
     featured: false,
   },
 
@@ -146,6 +141,9 @@ export const projects = [
 
     overview:
       "A backend system designed to manage volunteers, tasks, work locations, and assignments through structured database relationships and APIs.",
+
+    description:
+      "A Laravel backend for managing volunteers, task assignments, work locations, and operational data through REST APIs.",
 
     challenge:
       "Volunteer organizations need a reliable system to organize volunteers and assign tasks efficiently while maintaining clear data relationships.",
@@ -163,7 +161,7 @@ export const projects = [
 
     tech: ["Laravel", "PHP", "PostgreSQL", "Eloquent ORM", "REST APIs"],
 
-    image: "/projects/volunteer.png",
+    image: "/projects/volunteer.webp",
 
     github: "",
 

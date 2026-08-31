@@ -1,9 +1,10 @@
+import { useCallback, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
-import { Link } from "react-router-dom";
+import ProjectModal from "./ProjectModal";
 
-function ProjectCard({ project, featured = false }) {
+function ProjectCard({ project, featured = false, onOpen }) {
   const isMobile = project.category === "Mobile Application";
 
   return (
@@ -12,15 +13,21 @@ function ProjectCard({ project, featured = false }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       whileHover={{
-        y: -10,
-        scale: 1.02,
+        y: -7,
+        scale: 1.01,
+        transition: {
+          type: "spring",
+          stiffness: 520,
+          damping: 34,
+          mass: 0.45,
+        },
       }}
       transition={{
         type: "spring",
-        stiffness: 260,
-        damping: 22,
+        stiffness: 320,
+        damping: 30,
       }}
-      className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] backdrop-blur-xl transition duration-300 hover:border-violet-400/40 ${
+      className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] backdrop-blur-xl transition-colors duration-200 hover:border-violet-400/40 ${
         featured ? "lg:grid lg:grid-cols-2" : ""
       }`}
     >
@@ -40,13 +47,14 @@ function ProjectCard({ project, featured = false }) {
             />
 
             <div className="absolute inset-0 flex items-center justify-center bg-[#050816]/70 opacity-0 backdrop-blur-sm transition duration-300 group-hover:opacity-100">
-              <Link
-                to={`/projects/${project.id}`}
+              <button
+                type="button"
+                onClick={() => onOpen(project)}
                 className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white"
               >
                 View Case Study
                 <ArrowUpRight size={16} />
-              </Link>
+              </button>
             </div>
           </div>
         ) : (
@@ -67,13 +75,14 @@ function ProjectCard({ project, featured = false }) {
             />
 
             <div className="absolute inset-0 flex items-center justify-center bg-[#050816]/70 opacity-0 backdrop-blur-sm transition duration-300 group-hover:opacity-100">
-              <Link
-                to={`/projects/${project.id}`}
+              <button
+                type="button"
+                onClick={() => onOpen(project)}
                 className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur-xl"
               >
                 View Case Study
                 <ArrowUpRight size={16} />
-              </Link>
+              </button>
             </div>
           </div>
         )}
@@ -108,12 +117,15 @@ function ProjectCard({ project, featured = false }) {
 }
 
 function Projects() {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const closeModal = useCallback(() => setSelectedProject(null), []);
+
   const featuredProjects = projects.filter((project) => project.featured);
 
   const otherProjects = projects.filter((project) => !project.featured);
 
   return (
-    <section id="projects" className="relative overflow-hidden px-6 py-32">
+    <section id="projects" className="relative overflow-hidden px-6 py-20 lg:py-24">
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[10%] top-[10%] h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[150px]" />
@@ -148,17 +160,19 @@ function Projects() {
         {/* Featured */}
         <div className="space-y-8">
           {featuredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} featured />
+            <ProjectCard key={project.id} project={project} featured onOpen={setSelectedProject} />
           ))}
         </div>
 
         {/* Other projects */}
         <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {otherProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard key={project.id} project={project} onOpen={setSelectedProject} />
           ))}
         </div>
       </div>
+
+      <ProjectModal project={selectedProject} onClose={closeModal} />
     </section>
   );
 }

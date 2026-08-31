@@ -1,36 +1,9 @@
 import { motion } from "motion/react";
 import { ArrowDown, ArrowUpRight, Mail, Code2 } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "./SocialIcons";
 
-import ahmedHero from "../assets/ahmed-hero.png";
+import ahmedHero from "../assets/ahmed-hero-cutout.webp";
 import nodeLogo from "../assets/tech/nodejs.svg";
-
-function GithubIcon({ size = 19 }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M12 .7C5.7.7.7 5.8.7 12.2c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.3.8-.6v-2.2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.9 2.9 1.3 3.6 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C16.7 4.7 17.7 5 17.7 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.5-1.5 7.8-5.8 7.8-10.9C23.3 5.8 18.3.7 12 .7Z" />
-    </svg>
-  );
-}
-
-function LinkedinIcon({ size = 19 }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-    >
-      <path d="M6.5 8.5H3V21h3.5V8.5ZM4.75 3A2.05 2.05 0 1 0 4.75 7.1 2.05 2.05 0 0 0 4.75 3ZM21 13.8c0-3.75-2-5.5-4.65-5.5a4.02 4.02 0 0 0-3.62 1.98V8.5H9.25V21h3.48v-6.2c0-1.63.31-3.2 2.33-3.2 1.99 0 2.01 1.86 2.01 3.3V21H21v-7.2Z" />
-    </svg>
-  );
-}
 
 function Hero() {
   return (
@@ -170,7 +143,9 @@ function Hero() {
               className="mt-10 flex items-center gap-3"
             >
               <a
-                href="#"
+                href="https://github.com/ahalnaji002"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="GitHub"
                 className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-white/60 transition hover:border-violet-400/40 hover:text-white"
               >
@@ -178,7 +153,9 @@ function Hero() {
               </a>
 
               <a
-                href="#"
+                href="https://www.linkedin.com/in/ahmed-hashem-alnaji/"
+                target="_blank"
+                rel="noreferrer"
                 aria-label="LinkedIn"
                 className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-white/60 transition hover:border-violet-400/40 hover:text-white"
               >
@@ -186,7 +163,7 @@ function Hero() {
               </a>
 
               <a
-                href="#contact"
+                href="mailto:ahalnaji002@gmail.com"
                 aria-label="Email"
                 className="rounded-xl border border-white/10 bg-white/[0.03] p-3 text-white/60 transition hover:border-violet-400/40 hover:text-white"
               >
@@ -197,85 +174,46 @@ function Hero() {
 
           {/* RIGHT SIDE — IMAGE */}
           <motion.div
-            initial={{ opacity: 0, x: 60 }}
+            initial={{ opacity: 0, x: 32 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
               delay: 0.7,
-              duration: 1,
-              ease: "easeOut",
+               duration: 0.85,
+               ease: [0.22, 1, 0.36, 1],
             }}
             className="relative hidden min-h-[620px] -translate-y-19 items-center justify-center lg:flex"
           >
             {/* Outer glow */}
-            <motion.div
-              animate={{
-                scale: [1, 1.08, 1],
-                opacity: [0.45, 0.75, 0.45],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+            <div
               className="absolute h-[470px] w-[470px] rounded-full bg-gradient-to-r from-blue-500/25 via-violet-500/20 to-purple-600/25 blur-[90px]"
             />
             {/* Glass panel */}
-            <div className="absolute h-[520px] w-[430px] rounded-[36px] border border-white/10 bg-white/[0.025] shadow-[0_30px_100px_rgba(0,0,0,0.35)] backdrop-blur-md" />
+            <div className="absolute h-[480px] w-[480px] rounded-full border border-white/10 bg-[radial-gradient(circle_at_50%_35%,rgba(59,130,246,0.13),rgba(124,58,237,0.05)_48%,rgba(5,8,22,0.3)_75%)] shadow-[0_30px_100px_rgba(0,0,0,0.35)] backdrop-blur-md" />
             {/* Neon ring */}
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{
-                duration: 35,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute h-[410px] w-[410px] rounded-full border border-blue-400/30 shadow-[0_0_40px_rgba(59,130,246,0.25),0_0_100px_rgba(124,58,237,0.20)]"
+            <div
+              className="absolute h-[450px] w-[450px] transform-gpu rounded-full border border-blue-400/30 shadow-[0_0_40px_rgba(59,130,246,0.25),0_0_100px_rgba(124,58,237,0.20)] will-change-transform"
             />
             {/* Second ring */}
-            <motion.div
-              animate={{ rotate: -360 }}
-              transition={{
-                duration: 45,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              className="absolute h-[360px] w-[360px] rounded-full border border-dashed border-violet-400/20"
+            <div
+              className="absolute h-[410px] w-[410px] transform-gpu rounded-full border border-dashed border-violet-400/20 will-change-transform"
             />
             {/* Image */}
-            <motion.div
-              animate={{
-                y: [0, -8, 0],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="relative z-10 h-[460px] w-[360px] overflow-hidden rounded-[30px] border border-white/10 bg-white/[0.02] shadow-[0_30px_80px_rgba(0,0,0,0.45)]"
-            >
+            <div className="relative z-10 h-[440px] w-[440px] transform-gpu overflow-hidden rounded-full border border-white/10 bg-gradient-to-b from-blue-500/[0.04] to-violet-500/[0.08] shadow-[inset_0_0_60px_rgba(59,130,246,0.06)] will-change-transform">
               <img
                 src={ahmedHero}
                 alt="Ahmed Hashem Alnaji"
-                className="h-full w-full object-cover object-[center_18%]"
+                className="h-full w-full translate-y-4 scale-[1.02] object-contain object-bottom drop-shadow-[0_28px_45px_rgba(0,0,0,0.42)]"
               />
-
-              {/* Dark fade */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050816] via-[#050816]/55 to-transparent" />
-
-              {/* Soft glow */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-violet-500/10" />
-            </motion.div>
+            </div>
             {/* Floating tech badges */}
+            <div className="hero-orbit absolute h-[620px] w-[620px]">
+            <div className="pointer-events-none absolute left-[25px] top-[80px] h-[460px] w-[570px] rounded-[50%] border border-dashed border-violet-400/15" />
 
             {/* React */}
             <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute left-[-28px] top-[105px] z-20 flex h-[92px] w-[84px] flex-col items-center justify-center rounded-2xl border border-cyan-400/30 bg-[#08111f]/80 shadow-[0_0_30px_rgba(34,211,238,0.16)] backdrop-blur-xl"
+              whileHover={{ y: -3, scale: 1.035 }}
+              style={{ animationDelay: "0s" }}
+              className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-2xl border border-cyan-400/30 bg-[#08111f]/90 shadow-[0_0_30px_rgba(34,211,238,0.16)] backdrop-blur-xl"
             >
               <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/5">
                 <svg
@@ -299,13 +237,9 @@ function Hero() {
 
             {/* MySQL */}
             <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{
-                duration: 4.8,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute left-[5px] top-[235px] z-20 flex h-[92px] w-[84px] flex-col items-center justify-center rounded-xl border border-blue-400/30 bg-[#08111f]/80 shadow-[0_0_24px_rgba(96,165,250,0.14)] backdrop-blur-xl"
+              whileHover={{ y: -3, scale: 1.035 }}
+              style={{ animationDelay: "-5s" }}
+              className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-blue-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(96,165,250,0.14)] backdrop-blur-xl"
             >
               <div className="mb-1.5 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-400/5">
                 <svg
@@ -342,13 +276,9 @@ function Hero() {
 
             {/* Node.js */}
             <motion.div
-              animate={{ y: [0, 4, 0] }}
-              transition={{
-                duration: 4.6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute left-[-28px] top-[365px] z-20 flex h-[92px] w-[84px] flex-col items-center justify-center rounded-xl border border-green-400/30 bg-[#08111f]/80 shadow-[0_0_24px_rgba(74,222,128,0.14)] backdrop-blur-xl"
+              whileHover={{ y: -3, scale: 1.035 }}
+              style={{ animationDelay: "-10s" }}
+              className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-green-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(74,222,128,0.14)] backdrop-blur-xl"
             >
               <div className="mb-1.5 flex h-10 w-10 items-center justify-center rounded-lg bg-green-400/5">
                 <img
@@ -363,13 +293,9 @@ function Hero() {
 
             {/* Dart */}
             <motion.div
-              animate={{ y: [0, -4, 0] }}
-              transition={{
-                duration: 4.9,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute right-[-28px] top-[105px] z-20 flex h-[92px] w-[84px] flex-col items-center justify-center rounded-xl border border-sky-400/30 bg-[#08111f]/80 shadow-[0_0_24px_rgba(56,189,248,0.14)] backdrop-blur-xl"
+              whileHover={{ y: -3, scale: 1.035 }}
+              style={{ animationDelay: "-15s" }}
+              className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-sky-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(56,189,248,0.14)] backdrop-blur-xl"
             >
               <div className="mb-1.5 flex h-10 w-10 items-center justify-center rounded-lg bg-sky-400/5">
                 <svg
@@ -394,13 +320,9 @@ function Hero() {
 
             {/* Firebase */}
             <motion.div
-              animate={{ y: [0, 4, 0] }}
-              transition={{
-                duration: 5.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute right-[5px] top-[235px] z-20 flex h-[92px] w-[84px] flex-col items-center justify-center rounded-xl border border-yellow-400/30 bg-[#08111f]/80 shadow-[0_0_24px_rgba(250,204,21,0.14)] backdrop-blur-xl"
+              whileHover={{ y: -3, scale: 1.035 }}
+              style={{ animationDelay: "-20s" }}
+              className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-yellow-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(250,204,21,0.14)] backdrop-blur-xl"
             >
               <div className="mb-1.5 flex h-10 w-10 items-center justify-center rounded-lg bg-yellow-400/5">
                 <svg
@@ -425,13 +347,9 @@ function Hero() {
 
             {/* Flutter */}
             <motion.div
-              animate={{ y: [0, 4, 0] }}
-              transition={{
-                duration: 5.4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute right-[-28px] top-[365px] z-20 flex h-[92px] w-[84px] flex-col items-center justify-center rounded-xl border border-cyan-400/30 bg-[#08111f]/80 shadow-[0_0_24px_rgba(34,211,238,0.14)] backdrop-blur-xl"
+              whileHover={{ y: -3, scale: 1.035 }}
+              style={{ animationDelay: "-25s" }}
+              className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-cyan-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(34,211,238,0.14)] backdrop-blur-xl"
             >
               <div className="mb-1.5 flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-400/5">
                 <svg
@@ -459,31 +377,34 @@ function Hero() {
 
               <span className="text-xs font-semibold text-white">Flutter</span>
             </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.a
+      <a
         href="#about"
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: 1,
-          y: [0, 8, 0],
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
         }}
-        transition={{
-          opacity: { delay: 1.3 },
-          y: {
-            duration: 1.8,
-            repeat: Infinity,
-          },
-        }}
-        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/30 md:flex"
+        aria-label="Scroll to About section"
+        className="absolute bottom-6 left-1/2 z-30 hidden -translate-x-1/2 cursor-pointer rounded-xl px-4 py-2 text-white/30 transition hover:text-violet-300 md:block"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-
-        <ArrowDown size={17} />
-      </motion.a>
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, y: [0, 7, 0] }}
+          transition={{
+            opacity: { delay: 1.3 },
+            y: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },
+          }}
+          className="flex flex-col items-center gap-2"
+        >
+          <span className="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+          <ArrowDown size={17} />
+        </motion.span>
+      </a>
     </section>
   );
 }

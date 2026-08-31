@@ -40,3 +40,28 @@ button,
 a {
   font: inherit;
 }
+
+.hero-orbit-card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  offset-anchor: 50% 50%;
+  offset-path: ellipse(285px 230px at 310px 310px);
+  offset-rotate: 0deg;
+  animation: hero-orbit 30s linear infinite;
+  will-change: offset-distance;
+}
+
+.hero-orbit:hover .hero-orbit-card {
+  animation-play-state: paused;
+}
+
+@keyframes hero-orbit {
+  from {
+    offset-distance: 0%;
+  }
+
+  to {
+    offset-distance: 100%;
+  }
+}

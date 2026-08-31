@@ -103,7 +103,7 @@ const accentStyles = {
 
 function Skills() {
   return (
-    <section id="skills" className="relative overflow-hidden px-6 py-32">
+    <section id="skills" className="relative overflow-hidden px-6 py-20 lg:py-24">
       {/* Background */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[15%] top-[10%] h-[380px] w-[380px] rounded-full bg-blue-600/10 blur-[140px]" />

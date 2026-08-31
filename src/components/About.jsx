@@ -26,7 +26,7 @@ const cards = [
 
 function About() {
   return (
-    <section id="about" className="relative overflow-hidden px-6 py-32">
+    <section id="about" className="relative overflow-hidden px-6 py-20 lg:py-24">
       {/* Background glows */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-10%] top-[15%] h-[420px] w-[420px] rounded-full bg-blue-600/10 blur-[140px]" />
