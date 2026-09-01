@@ -1,4 +1,4 @@
-# Ahmed Hashem Alnaji — Portfolio
+# Ahmed Hashem Al Naji — Portfolio
 
 ## Project Overview
 

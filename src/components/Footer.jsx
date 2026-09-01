@@ -51,7 +51,7 @@ function Footer() {
         </div>
 
         <div className="flex flex-col gap-4 pt-7 text-xs text-white/30 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Ahmed Hashem Alnaji. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Ahmed Hashem Al Naji. All rights reserved.</p>
           <a href="#home" className="group inline-flex items-center gap-2 self-start transition hover:text-white sm:self-auto">
             Back to top
             <span className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/10 transition group-hover:border-violet-400/40">

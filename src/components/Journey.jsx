@@ -5,7 +5,7 @@ const milestones = [
   { year: "2021", title: "The beginning", text: "Started Computer Engineering at the Islamic University of Gaza." },
   { year: "2022–23", title: "Engineering foundations", text: "Built strong foundations in programming, algorithms, databases, and computer systems." },
   { year: "2024–25", title: "From learning to building", text: "Turned knowledge into full-stack, backend, and mobile products solving real problems." },
-  { year: "2026", title: "Ready for what’s next", text: "One semester from graduation and growing into a production-minded Full-Stack Developer." },
+  { year: "2027", title: "Ready for what’s next", text: "One semester from graduation and growing into a production-minded Full-Stack Developer." },
 ];
 
 const technologies = ["React", "Node.js", "Express.js", "Laravel", "MySQL", "PostgreSQL", "Flutter", "Firebase"];
@@ -57,7 +57,7 @@ function Journey() {
         </div>
         <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.025] p-6 sm:p-8">
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-            <div><span className="text-sm font-bold text-white">Computer Engineering Student</span><span className="mt-1 block text-sm text-white/40">Islamic University of Gaza · 2021–2026</span></div>
+            <div><span className="text-sm font-bold text-white">Computer Engineering Student</span><span className="mt-1 block text-sm text-white/40">Islamic University of Gaza · 2021–2027</span></div>
             <div className="flex max-w-3xl flex-wrap gap-2">{technologies.map((tech) => <span key={tech} className="rounded-lg border border-white/10 bg-black/20 px-3 py-1.5 text-xs text-white/60">{tech}</span>)}</div>
             <a
               href="/Ahmed_Al_Naji_CV.pdf"

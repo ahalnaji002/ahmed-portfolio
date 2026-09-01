@@ -93,7 +93,7 @@ function Hero() {
             >
               Ahmed Hashem
               <span className="block bg-gradient-to-r from-blue-400 via-violet-400 to-purple-500 bg-clip-text text-transparent">
-                Alnaji
+                Al Naji
               </span>
             </motion.h1>
 
@@ -111,7 +111,7 @@ function Hero() {
               <div className="relative h-[270px] w-[270px] overflow-hidden rounded-full border border-white/10 bg-[radial-gradient(circle_at_50%_35%,rgba(59,130,246,0.16),rgba(124,58,237,0.08)_52%,rgba(5,8,22,0.45)_78%)] shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
                 <img
                   src={ahmedHero}
-                  alt="Ahmed Hashem Alnaji"
+                  alt="Ahmed Hashem Al Naji"
                   className="h-full w-full translate-y-2 scale-[0.98] object-contain object-bottom drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)]"
                 />
               </div>
@@ -233,7 +233,7 @@ function Hero() {
             <div className="relative z-10 h-[440px] w-[440px] transform-gpu overflow-hidden rounded-full border border-white/10 bg-gradient-to-b from-blue-500/[0.04] to-violet-500/[0.08] shadow-[inset_0_0_60px_rgba(59,130,246,0.06)] will-change-transform">
               <img
                 src={ahmedHero}
-                alt="Ahmed Hashem Alnaji"
+                alt="Ahmed Hashem Al Naji"
                 className="h-full w-full translate-y-4 scale-[1.02] object-contain object-bottom drop-shadow-[0_28px_45px_rgba(0,0,0,0.42)]"
               />
             </div>
