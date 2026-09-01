@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { ArrowDown, ArrowUpRight, Mail, Code2 } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Download, Mail, Code2 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./SocialIcons";
 
 import ahmedHero from "../assets/ahmed-hero-cutout.webp";
@@ -97,6 +97,26 @@ function Hero() {
               </span>
             </motion.h1>
 
+            {/* Mobile portrait */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.62, duration: 0.7, ease: "easeOut" }}
+              className="relative mx-auto mt-8 flex h-[290px] w-[290px] items-end justify-center lg:hidden"
+            >
+              <div className="absolute inset-3 rounded-full bg-gradient-to-br from-blue-500/25 via-violet-500/15 to-purple-500/25 blur-2xl" />
+              <div className="absolute inset-2 rounded-full border border-blue-400/25 shadow-[0_0_45px_rgba(59,130,246,0.18)]" />
+              <div className="absolute inset-5 rounded-full border border-dashed border-violet-400/20" />
+
+              <div className="relative h-[270px] w-[270px] overflow-hidden rounded-full border border-white/10 bg-[radial-gradient(circle_at_50%_35%,rgba(59,130,246,0.16),rgba(124,58,237,0.08)_52%,rgba(5,8,22,0.45)_78%)] shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
+                <img
+                  src={ahmedHero}
+                  alt="Ahmed Hashem Alnaji"
+                  className="h-full w-full translate-y-2 scale-[0.98] object-contain object-bottom drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)]"
+                />
+              </div>
+            </motion.div>
+
             {/* Description */}
             <motion.p
               initial={{ opacity: 0, y: 25 }}
@@ -132,6 +152,18 @@ function Hero() {
                 className="rounded-xl border border-white/15 bg-white/[0.04] px-6 py-3.5 font-semibold text-white transition duration-300 hover:-translate-y-1 hover:border-violet-400/50 hover:bg-white/[0.08]"
               >
                 Contact Me
+              </a>
+
+              <a
+                href="/Ahmed_Al_Naji_CV.pdf"
+                download="Ahmed_Al_Naji_CV.pdf"
+                className="group flex items-center gap-2 rounded-xl border border-violet-400/30 bg-violet-500/[0.08] px-6 py-3.5 font-semibold text-violet-100 transition duration-300 hover:-translate-y-1 hover:border-violet-300/60 hover:bg-violet-500/15"
+              >
+                Download CV
+                <Download
+                  size={18}
+                  className="transition-transform group-hover:translate-y-0.5"
+                />
               </a>
             </motion.div>
 

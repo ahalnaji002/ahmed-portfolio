@@ -7,10 +7,12 @@ A responsive personal portfolio showcasing Ahmed's background, technical skills,
 ## Features
 
 - Animated hero, about, and skills sections
+- Responsive mobile portrait treatment with an optimized circular frame
 - Responsive project cards with in-page case study modals
 - Visual learning journey from engineering foundations to full-stack development
 - Expandable certificate gallery with full-size previews
-- Contact section with email, LinkedIn, and GitHub links
+- Interactive project starter that captures a visitor name and preferences, then prepares a tailored email
+- Downloadable PDF CV from the hero and journey sections
 - Compact footer with section navigation, social links, and back-to-top action
 - Responsive dark interface built with Tailwind CSS
 - Animated mobile navigation menu for compact screens

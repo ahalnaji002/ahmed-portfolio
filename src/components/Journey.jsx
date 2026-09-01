@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Check, GraduationCap, Rocket } from "lucide-react";
+import { Check, Download, GraduationCap, Rocket } from "lucide-react";
 
 const milestones = [
   { year: "2021", title: "The beginning", text: "Started Computer Engineering at the Islamic University of Gaza." },
@@ -59,6 +59,17 @@ function Journey() {
           <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div><span className="text-sm font-bold text-white">Computer Engineering Student</span><span className="mt-1 block text-sm text-white/40">Islamic University of Gaza · 2021–2026</span></div>
             <div className="flex max-w-3xl flex-wrap gap-2">{technologies.map((tech) => <span key={tech} className="rounded-lg border border-white/10 bg-black/20 px-3 py-1.5 text-xs text-white/60">{tech}</span>)}</div>
+            <a
+              href="/Ahmed_Al_Naji_CV.pdf"
+              download="Ahmed_Al_Naji_CV.pdf"
+              className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-xl border border-violet-400/30 bg-violet-500/10 px-5 py-3 text-sm font-semibold text-violet-100 transition duration-300 hover:-translate-y-0.5 hover:border-violet-300/60 hover:bg-violet-500/20"
+            >
+              Download CV
+              <Download
+                size={17}
+                className="transition-transform group-hover:translate-y-0.5"
+              />
+            </a>
           </div>
         </div>
       </div>
