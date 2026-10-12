@@ -29,7 +29,7 @@ export const projects = [
 
     image: "/projects/salman.webp",
 
-    liveDemo: "",
+    liveDemo: "https://salman-family.com/",
 
     featured: true,
   },
@@ -42,31 +42,31 @@ export const projects = [
     role: "Project Manager & Backend Developer",
 
     overview:
-      "A healthcare management platform that connects patients, doctors, NGOs, and administrators through a centralized system for managing medical information and assistance workflows.",
+      "A healthcare coordination platform connecting patients, doctors, NGOs, and administrators through registration, medical records, care assignments, and treatment workflows.",
 
     description:
-      "A centralized healthcare platform connecting patients, doctors, NGOs, and administrators through organized medical workflows.",
+      "A healthcare platform for coordinating care during conflict. The current build uses separate React/Vite frontend and Node/Express backend repositories.",
 
     challenge:
-      "Healthcare systems require organized communication between different roles while maintaining structured medical records and efficient assistance management.",
+      "Coordinate patients, clinicians, NGOs, and administrators while protecting role-specific medical information and keeping care workflows connected.",
 
     solution:
-      "Developed a full-stack platform with role-based access control, RESTful APIs, and structured database design to support healthcare workflows.",
+      "Designed a MySQL-backed REST API with transactional registration and review workflows, role-based access control, and doctor-patient care management.",
 
     features: [
-      "Patient management",
-      "Doctor workflows",
-      "Medical records",
-      "Emergency alerts",
-      "NGO assistance requests",
-      "Role-based authentication",
+      "Patient, doctor, and NGO registration with admin review",
+      "Role-based access and doctor-patient assignments",
+      "Medical records and doctor-owned notes",
+      "Continuing-care treatment plans, medications, and appointments",
+      "Transactional workflows across a 19-table MySQL schema",
     ],
 
-    tech: ["React", "Node.js", "Express.js", "MySQL", "JWT"],
+    tech: ["React", "Vite", "Node.js", "Express.js", "MySQL", "Knex.js", "JWT", "Axios"],
 
-    image: "/projects/hcms.webp",
+    image: "/projects/hcms.png",
 
-    github: "",
+    githubBackend: "https://github.com/ahalnaji002/HCMS-Backend",
+    githubFrontend: "https://github.com/ahalnaji002/HCMS-Frontend",
 
     featured: true,
   },
@@ -75,25 +75,27 @@ export const projects = [
     id: "barq-sms",
     title: "Barq SMS",
     category: "Mobile Application",
-    role: "Mobile Developer",
+    role: "Flutter Developer",
     overview:
-      "A mobile application designed to simplify beneficiary management by importing data, organizing distribution lists, and sending SMS notifications efficiently.",
+      "An Android app for importing beneficiary lists from Excel, personalizing bulk SMS messages, and keeping a local sending history.",
 
     challenge:
-      "Managing large beneficiary lists manually makes verification and communication processes slower and more error-prone.",
+      "Managing beneficiary spreadsheets and sending personalized messages can be slow, error-prone, and expose sensitive information on a device.",
 
     solution:
-      "Created a Flutter mobile application that allows users to import beneficiary data, verify records, organize distribution cycles, and send messages through an easy-to-use interface.",
+      "Built an Arabic RTL Flutter app with Excel import, duplicate checks, SMS personalization and delivery states, plus an encrypted local database.",
     description:
-      "A mobile application for importing beneficiaries, managing distribution lists, and sending SMS messages efficiently.",
-    tech: ["Flutter", "Dart", "Firebase", "Excel Import"],
+      "An Android Flutter app for importing beneficiary spreadsheets, personalizing bulk SMS, and tracking local send results.",
+    tech: ["Flutter", "Dart", "Excel", "Android SMS", "SQLCipher", "Secure Storage"],
     features: [
-      "Import beneficiaries",
-      "SMS management",
-      "Data verification",
-      "Distribution tracking",
+      "Import and map Excel beneficiary lists",
+      "Detect duplicate ID numbers or phone numbers",
+      "Personalize bulk SMS with beneficiary details",
+      "Track sent, delivered, and failed message states",
+      "Encrypted local database and optional PIN lock",
     ],
     image: "/projects/barq.webp",
+    github: "https://github.com/ahalnaji002/barq-sms",
     featured: false,
   },
 
@@ -102,33 +104,31 @@ export const projects = [
     title: "Shop Manager",
     category: "Mobile Application",
 
-    role: "Mobile Developer",
+    role: "Flutter Developer",
 
     overview:
-      "A mobile shop management application built to help small businesses manage invoices, customer accounts, debts, and daily sales operations.",
+      "A cross-platform shop management app for inventory, sales, customer accounts, debt tracking, expenses, and reports.",
 
     challenge:
-      "Small shops often need simple tools to track customer debts and sales without using complex management systems.",
+      "Small shops need reliable sales and inventory records that keep working offline while separating owner financial data from worker access.",
 
     solution:
-      "Built a Flutter application integrated with Firebase to provide a lightweight solution for managing customers, invoices, and business records.",
+      "Built Flutter clients backed by Firebase, with trusted Cloud Functions for transactional sales and stock operations and a local queue for offline sales.",
+    description:
+      "A Flutter shop management app with cash and credit sales, inventory, customer debts, expenses, and offline sale syncing.",
     features: [
-      "Invoice management",
-      "Customer accounts",
-      "Debt tracking",
-      "Firebase authentication",
-      "Cloud data storage",
+      "Cash and customer-credit sales with FIFO cost accounting",
+      "Inventory intake and stock movement tracking",
+      "Debt payments applied to oldest active invoices",
+      "Offline sales queued and synced after reconnection",
+      "Owner and worker access with protected financial records",
+      "Reports, expenses, customer statements, and PDF export",
     ],
 
-    tech: [
-      "Flutter",
-      "Dart",
-      "Firebase",
-      "Cloud Firestore",
-      "Firebase Authentication",
-    ],
+    tech: ["Flutter", "Dart", "Firebase Auth", "Cloud Firestore", "Cloud Functions", "Drift / SQLite"],
 
     image: "/projects/shop.webp",
+    github: "https://github.com/ahalnaji002/shop_manager",
     featured: false,
   },
 
@@ -140,31 +140,68 @@ export const projects = [
     role: "Backend Developer",
 
     overview:
-      "A backend system designed to manage volunteers, tasks, work locations, and assignments through structured database relationships and APIs.",
+      "A volunteer coordination system with a Laravel REST API and an optional React dashboard for administrators and volunteers.",
 
     description:
-      "A Laravel backend for managing volunteers, task assignments, work locations, and operational data through REST APIs.",
+      "A Laravel API and React dashboard for managing volunteers, tasks, work locations, and assignments with role-based access.",
 
     challenge:
-      "Volunteer organizations need a reliable system to organize volunteers and assign tasks efficiently while maintaining clear data relationships.",
+      "Coordinate volunteers across work locations and tasks while ensuring each volunteer can access only their own assignments.",
 
     solution:
-      "Built a Laravel backend with PostgreSQL database design, Eloquent relationships, and API endpoints to manage volunteer operations.",
+      "Built Sanctum-authenticated API endpoints for administrator management and volunteer self-service, backed by PostgreSQL and an optional React client.",
 
     features: [
-      "Volunteer management",
-      "Task assignment",
-      "Work location management",
-      "Database relationships",
-      "REST API development",
+      "Admin management for volunteers, tasks, locations, and assignments",
+      "Role-based login and protected routes",
+      "Volunteer profile and personal assignment views",
+      "Assignment validation and authenticated self-service",
+      "Optional React dashboard with CRUD screens",
     ],
 
-    tech: ["Laravel", "PHP", "PostgreSQL", "Eloquent ORM", "REST APIs"],
+    tech: ["Laravel 12", "PHP", "PostgreSQL", "Sanctum", "React", "Vite", "Tailwind CSS"],
 
     image: "/projects/volunteer.webp",
 
-    github: "",
+    github: "https://github.com/ahalnaji002/Volunteer-Coordination",
 
     featured: false,
+  },
+
+  {
+    id: "sanabil-platform",
+    title: "Sanabil Educational Platform",
+    category: "Full-Stack Web Platform",
+    description:
+      "An Arabic-first educational platform for students across Palestine, guiding learners from their grade to approved Google Drive destinations for each subject.",
+    overview:
+      "A full-stack educational platform with independently deployed frontend and backend applications. Students browse grades and subjects, then open approved learning resources in Google Drive.",
+    role: "Full-Stack Developer",
+    challenge:
+      "Making approved subject resources easy to discover for students while giving administrators a clear way to manage educational content.",
+    solution:
+      "Built an Arabic RTL student experience and a protected admin dashboard backed by a REST API and database-driven content.",
+    features: [
+      "Arabic RTL student homepage",
+      "Grade-first subject discovery",
+      "Approved Google Drive destinations",
+      "Admin management for grades and subjects",
+      "Drive link and announcement management",
+      "Protected admin authentication",
+    ],
+    tech: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Express.js",
+      "Prisma",
+      "MySQL",
+      "Axios",
+    ],
+    image: "/projects/sanabil.png",
+    liveDemo: "https://sanabil-platform.space/",
+    github: "https://github.com/ahalnaji002/sanabil-educational-platform",
+    featured: true,
   },
 ];

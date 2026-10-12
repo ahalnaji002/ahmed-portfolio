@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowDown, ArrowUpRight, Download, Mail, Code2 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "./SocialIcons";
 
@@ -6,6 +6,8 @@ import ahmedHero from "../assets/ahmed-hero-cutout.webp";
 import nodeLogo from "../assets/tech/nodejs.svg";
 
 function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       id="home"
@@ -14,7 +16,7 @@ function Hero() {
       {/* Background Effects */}
       <div className="pointer-events-none absolute inset-0">
         <motion.div
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             x: [0, 80, 0],
             y: [0, -50, 0],
           }}
@@ -27,7 +29,7 @@ function Hero() {
         />
 
         <motion.div
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             x: [0, -60, 0],
             y: [0, 70, 0],
           }}
@@ -55,7 +57,7 @@ function Hero() {
           <div>
             {/* Availability */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="mb-7 inline-flex items-center gap-3 rounded-full border border-emerald-400/20 bg-emerald-400/[0.06] px-4 py-2"
@@ -72,7 +74,7 @@ function Hero() {
 
             {/* Small Heading */}
             <motion.div
-              initial={{ opacity: 0, y: 25 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 }}
               className="mb-4 flex items-center gap-3"
@@ -86,7 +88,7 @@ function Hero() {
 
             {/* Name */}
             <motion.h1
-              initial={{ opacity: 0, y: 35 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 35 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
               className="text-5xl font-black leading-[0.95] tracking-[-0.05em] text-white sm:text-7xl lg:text-[88px]"
@@ -99,7 +101,7 @@ function Hero() {
 
             {/* Mobile portrait */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.92 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.62, duration: 0.7, ease: "easeOut" }}
               className="relative mx-auto mt-8 flex h-[290px] w-[290px] items-end justify-center lg:hidden"
@@ -119,7 +121,7 @@ function Hero() {
 
             {/* Description */}
             <motion.p
-              initial={{ opacity: 0, y: 25 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
               className="mt-8 max-w-2xl text-base leading-8 text-white/55 sm:text-lg"
@@ -131,7 +133,7 @@ function Hero() {
 
             {/* Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 25 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.85 }}
               className="mt-9 flex flex-wrap items-center gap-4"
@@ -169,7 +171,7 @@ function Hero() {
 
             {/* Social */}
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={prefersReducedMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
               className="mt-10 flex items-center gap-3"
@@ -206,7 +208,7 @@ function Hero() {
 
           {/* RIGHT SIDE — IMAGE */}
           <motion.div
-            initial={{ opacity: 0, x: 32 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: 32 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
               delay: 0.7,
@@ -243,7 +245,7 @@ function Hero() {
 
             {/* React */}
             <motion.div
-              whileHover={{ y: -3, scale: 1.035 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.035 }}
               style={{ animationDelay: "0s" }}
               className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-2xl border border-cyan-400/30 bg-[#08111f]/90 shadow-[0_0_30px_rgba(34,211,238,0.16)] backdrop-blur-xl"
             >
@@ -269,7 +271,7 @@ function Hero() {
 
             {/* MySQL */}
             <motion.div
-              whileHover={{ y: -3, scale: 1.035 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.035 }}
               style={{ animationDelay: "-5s" }}
               className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-blue-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(96,165,250,0.14)] backdrop-blur-xl"
             >
@@ -308,7 +310,7 @@ function Hero() {
 
             {/* Node.js */}
             <motion.div
-              whileHover={{ y: -3, scale: 1.035 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.035 }}
               style={{ animationDelay: "-10s" }}
               className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-green-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(74,222,128,0.14)] backdrop-blur-xl"
             >
@@ -325,7 +327,7 @@ function Hero() {
 
             {/* Dart */}
             <motion.div
-              whileHover={{ y: -3, scale: 1.035 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.035 }}
               style={{ animationDelay: "-15s" }}
               className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-sky-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(56,189,248,0.14)] backdrop-blur-xl"
             >
@@ -352,7 +354,7 @@ function Hero() {
 
             {/* Firebase */}
             <motion.div
-              whileHover={{ y: -3, scale: 1.035 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.035 }}
               style={{ animationDelay: "-20s" }}
               className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-yellow-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(250,204,21,0.14)] backdrop-blur-xl"
             >
@@ -379,7 +381,7 @@ function Hero() {
 
             {/* Flutter */}
             <motion.div
-              whileHover={{ y: -3, scale: 1.035 }}
+              whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.035 }}
               style={{ animationDelay: "-25s" }}
               className="hero-orbit-card z-20 flex h-[82px] w-[78px] flex-col items-center justify-center rounded-xl border border-cyan-400/30 bg-[#08111f]/90 shadow-[0_0_24px_rgba(34,211,238,0.14)] backdrop-blur-xl"
             >
@@ -419,14 +421,14 @@ function Hero() {
         href="#about"
         onClick={(event) => {
           event.preventDefault();
-          document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+          document.getElementById("about")?.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth" });
         }}
         aria-label="Scroll to About section"
         className="absolute bottom-6 left-1/2 z-30 hidden -translate-x-1/2 cursor-pointer rounded-xl px-4 py-2 text-white/30 transition hover:text-violet-300 md:block"
       >
         <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, y: [0, 7, 0] }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, 7, 0] }}
           transition={{
             opacity: { delay: 1.3 },
             y: { duration: 1.8, repeat: Infinity, ease: "easeInOut" },

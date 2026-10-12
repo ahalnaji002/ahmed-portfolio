@@ -37,7 +37,21 @@ function ProjectCard({ project, featured = false, onOpen }) {
           featured ? "min-h-[340px]" : "h-[240px]"
         }`}
       >
-        {isMobile ? (
+        {!project.image ? (
+          <div className="group relative flex h-full min-h-[240px] w-[85%] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_50%_35%,rgba(34,211,238,0.18),transparent_48%),linear-gradient(135deg,#0b1727,#10102a)] shadow-2xl">
+            <span className="text-center text-3xl font-black tracking-[0.3em] text-white/85">{project.title.toUpperCase()}</span>
+            <div className="absolute inset-0 flex items-center justify-center bg-[#050816]/70 opacity-0 backdrop-blur-sm transition duration-300 group-hover:opacity-100">
+              <button
+                type="button"
+                onClick={() => onOpen(project)}
+                className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white"
+              >
+                View Case Study
+                <ArrowUpRight size={16} />
+              </button>
+            </div>
+          </div>
+        ) : isMobile ? (
           // Mobile image (Landscape)
           <div className="group relative w-[85%] overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
             <img

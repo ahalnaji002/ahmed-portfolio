@@ -171,6 +171,9 @@ function Contact() {
                 className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               />
             </a>
+            <p className="mt-2 text-center text-xs leading-5 text-white/40">
+              This opens your email app with a draft message ready to send.
+            </p>
           </div>
 
           <div className="flex flex-col gap-3">

@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Award, ChevronDown, X } from "lucide-react";
 import { certificates } from "../data/certificates";
+import { useModalAccessibility } from "../hooks/useModalAccessibility";
 
 function Certificates() {
   const [showAll, setShowAll] = useState(false);
@@ -50,16 +51,14 @@ function Certificates() {
 }
 
 function CertificateModal({ certificate, onClose }) {
+  const dialogRef = useRef(null);
   const closeRef = useRef(null);
-  useEffect(() => {
-    if (!certificate) return undefined;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
-    const handleKeyDown = (event) => event.key === "Escape" && onClose();
-    window.addEventListener("keydown", handleKeyDown);
-    return () => { document.body.style.overflow = previousOverflow; window.removeEventListener("keydown", handleKeyDown); };
-  }, [certificate, onClose]);
+  useModalAccessibility({
+    isOpen: Boolean(certificate),
+    onClose,
+    dialogRef,
+    initialFocusRef: closeRef,
+  });
 
   return (
     <AnimatePresence>
@@ -67,7 +66,7 @@ function CertificateModal({ certificate, onClose }) {
         className="fixed inset-0 z-[110] flex items-center justify-center bg-[#02040c]/90 p-4 backdrop-blur-md"
         onMouseDown={(event) => event.target === event.currentTarget && onClose()} role="presentation">
         <motion.div initial={{ opacity: 0, scale: 0.96, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.97 }}
-          role="dialog" aria-modal="true" aria-labelledby="certificate-title" className="relative w-full max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-[#080b18]">
+          ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="certificate-title" className="relative w-full max-w-5xl overflow-hidden rounded-3xl border border-white/10 bg-[#080b18]">
           <button ref={closeRef} type="button" onClick={onClose} aria-label="Close certificate"
             className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#080b18]/90 text-white"><X size={20} /></button>
           <div className="max-h-[72vh] overflow-auto bg-white p-2 sm:p-4"><img src={certificate.image} alt={certificate.title} className="mx-auto max-h-[68vh] w-auto object-contain" /></div>

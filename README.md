@@ -9,6 +9,7 @@ A responsive personal portfolio showcasing Ahmed's background, technical skills,
 - Animated hero, about, and skills sections
 - Responsive mobile portrait treatment with an optimized circular frame
 - Responsive project cards with in-page case study modals
+- Project cards with live website and GitHub repository links, including the Sanabil platform
 - Visual learning journey from engineering foundations to full-stack development
 - Expandable certificate gallery with full-size previews
 - Interactive project starter that captures a visitor name and preferences, then prepares a tailored email

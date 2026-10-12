@@ -1,22 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight, X } from "lucide-react";
+import { useModalAccessibility } from "../hooks/useModalAccessibility";
 
 function ProjectModal({ project, onClose }) {
+  const dialogRef = useRef(null);
   const closeButtonRef = useRef(null);
-
-  useEffect(() => {
-    if (!project) return undefined;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    closeButtonRef.current?.focus();
-    const handleKeyDown = (event) => event.key === "Escape" && onClose();
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [project, onClose]);
+  useModalAccessibility({
+    isOpen: Boolean(project),
+    onClose,
+    dialogRef,
+    initialFocusRef: closeButtonRef,
+  });
 
   return (
     <AnimatePresence>
@@ -27,13 +22,20 @@ function ProjectModal({ project, onClose }) {
           <motion.div initial={{ opacity: 0, y: 35, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.98 }} transition={{ type: "spring", stiffness: 280, damping: 28 }}
             role="dialog" aria-modal="true" aria-labelledby="project-modal-title"
+            ref={dialogRef}
             className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto rounded-3xl border border-white/10 bg-[#080b18] shadow-2xl shadow-violet-950/40">
             <button ref={closeButtonRef} type="button" onClick={onClose} aria-label="Close project details"
               className="absolute right-5 top-5 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-[#080b18]/90 text-white/70 backdrop-blur-xl transition hover:border-violet-400/50 hover:text-white">
               <X size={21} />
             </button>
             <div className="relative overflow-hidden rounded-t-3xl bg-[#050816]">
-              <img src={project.image} alt={project.title} className="max-h-[430px] w-full object-cover" />
+              {project.image ? (
+                <img src={project.image} alt={project.title} className="max-h-[430px] w-full object-cover" />
+              ) : (
+                <div className="flex h-56 items-center justify-center bg-[radial-gradient(circle_at_50%_35%,rgba(34,211,238,0.18),transparent_48%),linear-gradient(135deg,#0b1727,#10102a)] sm:h-80">
+                  <span className="text-center text-3xl font-black tracking-[0.3em] text-white/85">{project.title.toUpperCase()}</span>
+                </div>
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#080b18] via-transparent to-transparent" />
             </div>
             <div className="relative px-6 pb-8 sm:px-10 sm:pb-10">
@@ -52,8 +54,8 @@ function ProjectModal({ project, onClose }) {
                   <div className="mt-4 grid gap-2 sm:grid-cols-2">{project.features.map((feature) => <div key={feature} className="rounded-lg border border-white/5 bg-black/20 px-3 py-2 text-sm text-white/55">{feature}</div>)}</div>
                 </div>
               </div>
-              {(project.liveDemo || project.github) && <div className="mt-8 flex flex-wrap gap-3">
-                {project.liveDemo && <ProjectLink href={project.liveDemo}>Live Demo</ProjectLink>}{project.github && <ProjectLink href={project.github}>GitHub</ProjectLink>}
+              {(project.liveDemo || project.github || project.githubBackend || project.githubFrontend) && <div className="mt-8 flex flex-wrap gap-3">
+                {project.liveDemo && <ProjectLink href={project.liveDemo}>Live Website</ProjectLink>}{project.github && <ProjectLink href={project.github}>GitHub</ProjectLink>}{project.githubBackend && <ProjectLink href={project.githubBackend}>Backend Repository</ProjectLink>}{project.githubFrontend && <ProjectLink href={project.githubFrontend}>Frontend Repository</ProjectLink>}
               </div>}
             </div>
           </motion.div>
