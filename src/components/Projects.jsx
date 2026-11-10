@@ -1,132 +1,67 @@
 import { useCallback, useState } from "react";
-import { motion } from "motion/react";
-import { ArrowUpRight } from "lucide-react";
 import { projects } from "../data/projects";
 import ProjectModal from "./ProjectModal";
+import { Container, Reveal, SectionHeader, Tag } from "./ui";
 
-function ProjectCard({ project, featured = false, onOpen }) {
-  const isMobile = project.category === "Mobile Application";
+function fileName(project) {
+  return project.image ? project.image.split("/").pop() : project.id + ".md";
+}
 
+function ProjectCard({ project, number, featured = false, onOpen }) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      whileHover={{
-        y: -7,
-        scale: 1.01,
-        transition: {
-          type: "spring",
-          stiffness: 520,
-          damping: 34,
-          mass: 0.45,
-        },
-      }}
-      transition={{
-        type: "spring",
-        stiffness: 320,
-        damping: 30,
-      }}
-      className={`group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] backdrop-blur-xl transition-colors duration-200 hover:border-violet-400/40 ${
-        featured ? "lg:grid lg:grid-cols-2" : ""
-      }`}
+    <button
+      type="button"
+      onClick={() => onOpen(project)}
+      aria-label={"Open case study: " + project.title}
+      className={
+        "group block h-full w-full border border-line bg-panel text-left transition hover:border-accent/60 " +
+        (featured ? "lg:grid lg:grid-cols-[1.1fr_0.9fr]" : "")
+      }
     >
-      {/* Image */}
-      <div
-        className={`relative flex items-center justify-center overflow-hidden bg-[#050816] ${
-          featured ? "min-h-[340px]" : "h-[240px]"
-        }`}
-      >
-        {!project.image ? (
-          <div className="group relative flex h-full min-h-[240px] w-[85%] items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-[radial-gradient(circle_at_50%_35%,rgba(34,211,238,0.18),transparent_48%),linear-gradient(135deg,#0b1727,#10102a)] shadow-2xl">
-            <span className="text-center text-3xl font-black tracking-[0.3em] text-white/85">{project.title.toUpperCase()}</span>
-            <div className="absolute inset-0 flex items-center justify-center bg-[#050816]/70 opacity-0 backdrop-blur-sm transition duration-300 group-hover:opacity-100">
-              <button
-                type="button"
-                onClick={() => onOpen(project)}
-                className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white"
-              >
-                View Case Study
-                <ArrowUpRight size={16} />
-              </button>
-            </div>
-          </div>
-        ) : isMobile ? (
-          // Mobile image (Landscape)
-          <div className="group relative w-[85%] overflow-hidden rounded-2xl border border-white/10 bg-black shadow-2xl">
+      <div className={"border-b border-line bg-bg " + (featured ? "lg:border-b-0 lg:border-r" : "")}>
+        <div className="flex justify-between gap-3 border-b border-line px-3 py-2 text-[11px] text-muted">
+          <span className="truncate">{fileName(project)}</span>
+          <span className="shrink-0">{project.role}</span>
+        </div>
+        <div className={"overflow-hidden " + (featured ? "aspect-video lg:aspect-auto lg:h-[calc(100%-33px)]" : "aspect-video")}>
+          {project.image ? (
             <img
               src={project.image}
               alt={project.title}
-              className="aspect-video w-full object-cover transition duration-700 group-hover:scale-105"
+              loading="lazy"
+              className="h-full w-full object-cover object-top opacity-90 transition duration-500 group-hover:scale-[1.02] group-hover:opacity-100"
             />
-
-            <div className="absolute inset-0 flex items-center justify-center bg-[#050816]/70 opacity-0 backdrop-blur-sm transition duration-300 group-hover:opacity-100">
-              <button
-                type="button"
-                onClick={() => onOpen(project)}
-                className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white"
-              >
-                View Case Study
-                <ArrowUpRight size={16} />
-              </button>
+          ) : (
+            <div className="flex h-full items-center justify-center p-6 text-center font-display text-2xl font-extrabold text-muted">
+              {project.title}
             </div>
-          </div>
-        ) : (
-          // Web Laptop Frame
-          <div className="relative w-[85%] overflow-hidden rounded-xl border border-white/10 bg-black shadow-2xl">
-            <div className="absolute left-0 right-0 top-0 z-10 h-5 bg-white/5">
-              <div className="ml-3 mt-2 flex gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-red-400" />
-                <span className="h-1.5 w-1.5 rounded-full bg-yellow-400" />
-                <span className="h-1.5 w-1.5 rounded-full bg-green-400" />
-              </div>
-            </div>
-
-            <img
-              src={project.image}
-              alt={project.title}
-              className="mt-5 h-full w-full object-cover transition duration-500 group-hover:scale-110"
-            />
-
-            <div className="absolute inset-0 flex items-center justify-center bg-[#050816]/70 opacity-0 backdrop-blur-sm transition duration-300 group-hover:opacity-100">
-              <button
-                type="button"
-                onClick={() => onOpen(project)}
-                className="flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur-xl"
-              >
-                View Case Study
-                <ArrowUpRight size={16} />
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="relative p-7">
-        <span className="text-xs font-semibold uppercase tracking-[0.25em] text-violet-400">
-          {project.category}
-        </span>
-
-        <h3 className="mt-4 text-2xl font-black text-white">{project.title}</h3>
-
-        <p className="mt-4 text-sm leading-7 text-white/50">
-          {project.description}
-        </p>
-
-        {/* Tags */}
-        <div className="mt-6 flex flex-wrap gap-2">
-          {project.tech.map((item) => (
-            <span
-              key={item}
-              className="rounded-lg border border-white/10 bg-black/20 px-3 py-1.5 text-xs font-medium text-white/70"
-            >
-              {item}
-            </span>
-          ))}
+          )}
         </div>
       </div>
-    </motion.article>
+
+      <div className="flex flex-col p-5 sm:p-6">
+        <span className="text-xs text-muted">
+          <span className="text-accent">{String(number).padStart(2, "0")}</span> · {project.category.toLowerCase()}
+        </span>
+        <h3
+          className={
+            "mt-3 font-display font-extrabold leading-tight tracking-tight transition group-hover:text-accent " +
+            (featured ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl")
+          }
+        >
+          {project.title}
+        </h3>
+        <p className="mt-3 text-sm leading-6 text-muted">{project.description}</p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {project.tech.slice(0, featured ? 8 : 5).map((item) => (
+            <Tag key={item}>{item}</Tag>
+          ))}
+        </div>
+        <span className="mt-6 text-sm text-accent">
+          open case_study <span className="inline-block transition group-hover:translate-x-1">→</span>
+        </span>
+      </div>
+    </button>
   );
 }
 
@@ -135,56 +70,40 @@ function Projects() {
   const closeModal = useCallback(() => setSelectedProject(null), []);
 
   const featuredProjects = projects.filter((project) => project.featured);
-
   const otherProjects = projects.filter((project) => !project.featured);
 
   return (
-    <section id="projects" className="relative overflow-hidden px-6 py-20 lg:py-24">
-      {/* Background */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[10%] top-[10%] h-[400px] w-[400px] rounded-full bg-violet-600/10 blur-[150px]" />
-        <div className="absolute bottom-[10%] right-[10%] h-[350px] w-[350px] rounded-full bg-blue-600/10 blur-[140px]" />
-      </div>
+    <section id="projects" className="border-t border-line py-16 sm:py-24">
+      <Container>
+        <SectionHeader
+          index="03"
+          path="ls ~/projects"
+          title="Things I've built to solve real problems."
+          intro={projects.length + " projects across web, backend and mobile. Open any of them for the full case study."}
+        />
 
-      <div className="relative z-10 mx-auto max-w-7xl">
-        {/* Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-14"
-        >
-          <div className="mb-5 flex items-center gap-3">
-            <span className="text-sm font-bold tracking-[0.25em] text-violet-400">
-              03 / WHAT I'VE BEEN BUILDING
-            </span>
-
-            <div className="h-px w-16 bg-gradient-to-r from-violet-500 to-transparent" />
-          </div>
-
-          <h2 className="max-w-4xl text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Building digital products that{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-violet-400 to-purple-500 bg-clip-text text-transparent">
-              solve real problems.
-            </span>
-          </h2>
-        </motion.div>
-
-        {/* Featured */}
-        <div className="space-y-8">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} featured onOpen={setSelectedProject} />
+        <p className="mb-4 text-xs text-muted">// featured</p>
+        <div className="space-y-4">
+          {featuredProjects.map((project, index) => (
+            <Reveal key={project.id}>
+              <ProjectCard project={project} number={index + 1} featured onOpen={setSelectedProject} />
+            </Reveal>
           ))}
         </div>
 
-        {/* Other projects */}
-        <div className="mt-8 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {otherProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} onOpen={setSelectedProject} />
+        <p className="mb-4 mt-12 text-xs text-muted">// more</p>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {otherProjects.map((project, index) => (
+            <Reveal key={project.id} delay={index * 0.05}>
+              <ProjectCard
+                project={project}
+                number={featuredProjects.length + index + 1}
+                onOpen={setSelectedProject}
+              />
+            </Reveal>
           ))}
         </div>
-      </div>
+      </Container>
 
       <ProjectModal project={selectedProject} onClose={closeModal} />
     </section>
