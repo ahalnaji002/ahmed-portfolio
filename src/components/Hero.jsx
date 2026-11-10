@@ -1,19 +1,13 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import heroImage from "../assets/ahmed-hero-cutout.webp";
+import { API_PATH, heroSummary } from "../data/profile";
 import { Container } from "./ui";
 
 const links = [
   { label: "cv.pdf ↓", href: "/Ahmed_Al_Naji_CV.pdf", download: "Ahmed_Al_Naji_CV.pdf" },
   { label: "github", href: "https://github.com/ahalnaji002", external: true },
   { label: "linkedin", href: "https://www.linkedin.com/in/ahmed-hashem-alnaji/", external: true },
-];
-
-const profile = [
-  ["role", ["Full-Stack Developer"]],
-  ["focus", ["backend"]],
-  ["stack", ["Node", "Express", "Laravel", "React", "Flutter"]],
-  ["databases", ["MySQL", "PostgreSQL"]],
 ];
 
 const fadeUp = (delay) => ({
@@ -136,15 +130,24 @@ function Hero() {
           </div>
 
           <div className="border border-line bg-panel">
-            <div className="flex justify-between border-b border-line px-4 py-2.5 text-xs text-muted">
+            <a
+              href={API_PATH}
+              target="_blank"
+              rel="noreferrer"
+              title="Open the live API response"
+              className="group flex justify-between gap-3 border-b border-line px-4 py-2.5 text-xs text-muted transition hover:bg-bg"
+            >
               <span>
-                <span className="text-accent">GET</span> /api/ahmed
+                <span className="text-accent">GET</span> <span className="group-hover:text-ink">{API_PATH}</span>
               </span>
-              <span className="text-ok">200 OK</span>
-            </div>
+              <span>
+                <span className="text-ok">200 OK</span>{" "}
+                <span className="text-accent">· try it ↗</span>
+              </span>
+            </a>
             <pre className="whitespace-pre-wrap p-4 text-[12.5px] leading-[1.7]">
               {"{\n"}
-              {profile.map(([key, values]) => (
+              {heroSummary.map(([key, values]) => (
                 <span key={key}>
                   {"  "}
                   <span className="text-key">"{key}"</span>: <JsonValue values={values} />
