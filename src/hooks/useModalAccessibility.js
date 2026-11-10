@@ -65,7 +65,8 @@ export function useModalAccessibility({
         previouslyFocusedElement instanceof HTMLElement &&
         previouslyFocusedElement.isConnected
       ) {
-        previouslyFocusedElement.focus();
+        // preventScroll: returning focus must not undo a scroll the dialog just triggered.
+        previouslyFocusedElement.focus({ preventScroll: true });
       }
     };
   }, [isOpen, onClose, dialogRef, initialFocusRef]);

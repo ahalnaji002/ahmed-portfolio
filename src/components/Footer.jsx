@@ -1,13 +1,5 @@
 import { Container } from "./ui";
-
-const footerLinks = [
-  { id: "about", label: "about" },
-  { id: "skills", label: "skills" },
-  { id: "projects", label: "projects" },
-  { id: "journey", label: "journey" },
-  { id: "certificates", label: "certs" },
-  { id: "contact", label: "contact" },
-];
+import { sections } from "../data/sections";
 
 const socialLinks = [
   { label: "github", href: "https://github.com/ahalnaji002", external: true },
@@ -32,7 +24,7 @@ function Footer() {
           <div className="grid grid-cols-2 gap-8 text-sm sm:flex sm:gap-14">
             <nav aria-label="Footer navigation" className="flex flex-col gap-2">
               <span className="text-xs text-muted">// sections</span>
-              {footerLinks.map((item) => (
+              {sections.map((item) => (
                 <a key={item.id} href={"#" + item.id} className="text-ink/80 transition hover:text-accent">
                   /{item.label}
                 </a>

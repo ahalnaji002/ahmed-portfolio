@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import heroImage from "../assets/ahmed-hero-cutout.webp";
 import { API_PATH, heroSummary } from "../data/profile";
+import { openPalette, shortcutLabel } from "../lib/palette";
 import { Container } from "./ui";
 
 const links = [
@@ -95,6 +96,20 @@ function Hero() {
               </a>
             ))}
           </motion.div>
+
+          <motion.button
+            {...fadeUp(0.38)}
+            type="button"
+            onClick={openPalette}
+            className="mt-5 text-left text-xs text-muted transition hover:text-ink"
+          >
+            <span className="hidden md:inline">
+              tip: press <kbd className="text-accent">/</kbd> or <kbd className="text-accent">{shortcutLabel}</kbd> to open the command line
+            </span>
+            <span className="md:hidden">
+              tip: tap <span className="text-accent">&gt;_</span> to open the command line
+            </span>
+          </motion.button>
         </div>
 
         <motion.div {...fadeUp(0.2)} className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-1">

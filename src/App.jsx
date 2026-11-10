@@ -8,6 +8,7 @@ import Journey from "./components/Journey";
 import Certificates from "./components/Certificates";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import CommandPalette from "./components/CommandPalette";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <CommandPalette />
     </MotionConfig>
   );
 }

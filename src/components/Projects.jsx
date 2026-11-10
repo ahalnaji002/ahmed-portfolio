@@ -1,5 +1,6 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { projects } from "../data/projects";
+import { OPEN_PROJECT_EVENT } from "../lib/palette";
 import ProjectModal from "./ProjectModal";
 import { Container, Reveal, SectionHeader, Tag } from "./ui";
 
@@ -68,6 +69,19 @@ function ProjectCard({ project, number, featured = false, onOpen }) {
 function Projects() {
   const [selectedProject, setSelectedProject] = useState(null);
   const closeModal = useCallback(() => setSelectedProject(null), []);
+
+  // The command palette's `open <project>` command.
+  useEffect(() => {
+    const onOpenProject = (event) => {
+      const project = projects.find((item) => item.id === event.detail);
+      if (!project) return;
+      document.getElementById("projects")?.scrollIntoView();
+      setSelectedProject(project);
+    };
+
+    window.addEventListener(OPEN_PROJECT_EVENT, onOpenProject);
+    return () => window.removeEventListener(OPEN_PROJECT_EVENT, onOpenProject);
+  }, []);
 
   const featuredProjects = projects.filter((project) => project.featured);
   const otherProjects = projects.filter((project) => !project.featured);

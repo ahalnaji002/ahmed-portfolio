@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
-
-const navItems = [
-  { id: "about", label: "about" },
-  { id: "skills", label: "skills" },
-  { id: "projects", label: "projects" },
-  { id: "journey", label: "journey" },
-  { id: "certificates", label: "certs" },
-  { id: "contact", label: "contact" },
-];
+import { sections } from "../data/sections";
+import { openPalette, shortcutLabel } from "../lib/palette";
 
 function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
@@ -23,7 +16,7 @@ function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = ["home", ...navItems.map((item) => item.id)]
+    const targets = ["home", ...sections.map((item) => item.id)]
       .map((id) => document.getElementById(id))
       .filter(Boolean);
 
@@ -38,7 +31,7 @@ function Navbar() {
       { rootMargin: "-35% 0px -55% 0px", threshold: [0, 0.1, 0.25, 0.5] },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    targets.forEach((target) => observer.observe(target));
     return () => observer.disconnect();
   }, []);
 
@@ -50,7 +43,7 @@ function Navbar() {
         </a>
 
         <div className="hidden items-center gap-6 lg:flex">
-          {navItems.map((item) => {
+          {sections.map((item) => {
             const isActive = activeSection === item.id;
             return (
               <a
@@ -66,15 +59,31 @@ function Navbar() {
           })}
         </div>
 
-        <button
-          type="button"
-          onClick={() => setMobileOpen((open) => !open)}
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-navigation"
-          className="py-2 text-muted transition hover:text-ink lg:hidden"
-        >
-          {mobileOpen ? "[close]" : "[menu]"}
-        </button>
+        <div className="flex items-center gap-4">
+          <button
+            type="button"
+            onClick={() => {
+              setMobileOpen(false);
+              openPalette();
+            }}
+            aria-label={"Open command line (" + shortcutLabel + ")"}
+            title={"Command line · " + shortcutLabel}
+            className="border border-line px-2.5 py-1.5 text-xs text-muted transition hover:border-accent hover:text-accent"
+          >
+            <span className="text-accent">&gt;_</span>
+            <span className="ml-2 hidden md:inline">{shortcutLabel}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setMobileOpen((open) => !open)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
+            className="py-2 text-muted transition hover:text-ink lg:hidden"
+          >
+            {mobileOpen ? "[close]" : "[menu]"}
+          </button>
+        </div>
       </nav>
 
       {mobileOpen && (
@@ -84,7 +93,7 @@ function Navbar() {
           className="border-t border-line bg-bg lg:hidden"
         >
           <ul className="mx-auto max-w-6xl px-4 py-2 sm:px-6">
-            {navItems.map((item, index) => {
+            {sections.map((item, index) => {
               const isActive = activeSection === item.id;
               return (
                 <li key={item.id}>
