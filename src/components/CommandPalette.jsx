@@ -4,6 +4,7 @@ import { API_PATH, profile } from "../data/profile";
 import { projects } from "../data/projects";
 import { sections } from "../data/sections";
 import { useModalAccessibility } from "../hooks/useModalAccessibility";
+import { fetchGitActivity, timeAgo } from "../lib/github";
 import { OPEN_PALETTE_EVENT, openProject, shortcutLabel } from "../lib/palette";
 
 const MAILTO = "mailto:" + profile.contact.email;
@@ -28,6 +29,7 @@ const HELP_LINES = [
   { text: "curl /api/ahmed   open the live JSON API" },
   { text: "mail ahmed        write me an email · copy email" },
   { text: "open github       also: open linkedin" },
+  { text: "git log           my latest GitHub activity" },
   { text: "whoami · ls · clear · exit" },
   { text: "psst… there might be a sudo command 👀", tone: "muted" },
 ];
@@ -125,6 +127,25 @@ const COMMANDS = [
     run: ({ print }) => {
       window.open(profile.contact.linkedin, "_blank", "noopener");
       print([{ text: "opened LinkedIn in a new tab", tone: "ok" }]);
+    },
+  },
+  {
+    label: "git log",
+    hint: "My latest GitHub activity",
+    group: "system",
+    aliases: ["git", "git log -1", "activity"],
+    keywords: "github commits push recent",
+    run: async ({ print }) => {
+      const activity = await fetchGitActivity();
+      if (!activity?.repo) {
+        print([{ text: "fatal: couldn't reach GitHub right now", tone: "err" }]);
+        return;
+      }
+      print([
+        { text: "last push → " + activity.repo + " (" + timeAgo(activity.pushed_at) + ")", tone: "ok" },
+        ...(activity.description ? [{ text: activity.description, tone: "muted" }] : []),
+        { text: activity.url, tone: "muted" },
+      ]);
     },
   },
   {

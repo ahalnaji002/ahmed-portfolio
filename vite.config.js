@@ -2,15 +2,19 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-// In production Vercel runs api/ahmed.js as a function. This serves the same
-// handler during `npm run dev`, so the live API link works locally too.
+// In production Vercel runs each api/<name>.js as a function. This serves the same
+// handlers during `npm run dev`, so the API works locally too.
 function devApi() {
   return {
     name: "dev-api",
     configureServer(server) {
-      server.middlewares.use("/api/ahmed", async (req, res, next) => {
+      server.middlewares.use("/api", async (req, res, next) => {
+        const name = req.url.split("?")[0].replace(/^\/+|\/+$/g, "");
+        if (!/^[a-z0-9-]+$/.test(name)) return next();
+
         try {
-          const handler = await server.ssrLoadModule("/api/ahmed.js");
+          const handler = await server.ssrLoadModule("/api/" + name + ".js").catch(() => null);
+          if (!handler) return next();
           const method = req.method === "HEAD" ? "GET" : req.method;
           if (typeof handler[method] !== "function") {
             res.statusCode = 405;

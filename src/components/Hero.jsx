@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import heroImage from "../assets/ahmed-hero-cutout.webp";
 import { API_PATH, heroSummary } from "../data/profile";
 import { openPalette, shortcutLabel } from "../lib/palette";
+import GitActivity from "./GitActivity";
 import { Container } from "./ui";
 
 const links = [
@@ -56,6 +57,9 @@ function Hero() {
           <motion.p {...fadeUp(0)} className="text-xs text-muted">
             // full-stack developer · status: <span className="text-ok">● open_to_work</span>
           </motion.p>
+          <motion.div {...fadeUp(0.04)}>
+            <GitActivity className="mt-1.5" />
+          </motion.div>
 
           <motion.h1
             {...fadeUp(0.08)}
