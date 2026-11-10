@@ -18,16 +18,27 @@ export function Reveal({ className = "", delay = 0, children }) {
   );
 }
 
+// Inline code-like text (commands, file names) that must stay left-to-right inside Arabic.
+export function Code({ className = "", children }) {
+  return (
+    <bdi dir="ltr" className={className}>
+      {children}
+    </bdi>
+  );
+}
+
 export function SectionHeader({ index, path, title, intro }) {
   return (
     <Reveal className="mb-10 sm:mb-14">
       <p className="text-xs text-muted">
-        <span className="text-accent">{index}</span> — {path}
+        <Code>
+          <span className="text-accent">{index}</span> — {path}
+        </Code>
       </p>
-      <h2 className="mt-4 max-w-4xl font-display text-[clamp(34px,7vw,64px)] font-extrabold leading-[1.02] tracking-[-0.03em] text-ink">
+      <h2 className="mt-4 max-w-4xl font-display text-[clamp(34px,7vw,64px)] font-extrabold leading-[1.02] tracking-[-0.03em] text-ink rtl:leading-[1.25]">
         {title}
       </h2>
-      {intro && <p className="mt-5 max-w-2xl leading-7 text-muted">{intro}</p>}
+      {intro && <p className="mt-5 max-w-2xl leading-7 text-muted rtl:leading-8">{intro}</p>}
     </Reveal>
   );
 }
@@ -36,7 +47,7 @@ export function Window({ title, meta, className = "", children }) {
   return (
     <div className={"border border-line bg-panel " + className}>
       <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-2.5 text-xs text-muted">
-        <span className="truncate">{title}</span>
+        <Code className="truncate">{title}</Code>
         {meta && <span className="shrink-0">{meta}</span>}
       </div>
       {children}
@@ -46,6 +57,8 @@ export function Window({ title, meta, className = "", children }) {
 
 export function Tag({ children }) {
   return (
-    <span className="border border-line bg-bg px-2.5 py-1 text-xs text-ink/80">{children}</span>
+    <span dir="ltr" className="border border-line bg-bg px-2.5 py-1 text-xs text-ink/80">
+      {children}
+    </span>
   );
 }

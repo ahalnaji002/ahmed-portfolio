@@ -42,6 +42,27 @@ body {
   overflow-x: hidden;
 }
 
+/* Arabic: Plex Sans Arabic for prose (Latin falls back to JetBrains Mono); letter-spacing
+   breaks Arabic letter joining, so it is reset everywhere. */
+html[lang="ar"] body {
+  font-family: var(--font-ar), var(--font-mono);
+  font-size: 15px;
+}
+
+html[lang="ar"] .font-display {
+  font-family: var(--font-ar), var(--font-display);
+}
+
+html[lang="ar"] :is(h1, h2, h3, p, span, a, button, li) {
+  letter-spacing: 0 !important;
+}
+
+/* Code-like fragments keep the monospace font inside Arabic text. */
+.font-mono,
+body [dir="ltr"] {
+  font-family: var(--font-mono);
+}
+
 section[id] {
   scroll-margin-top: 56px;
 }

@@ -2,7 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import { projects } from "../data/projects";
 import { OPEN_PROJECT_EVENT } from "../lib/palette";
 import ProjectModal from "./ProjectModal";
-import { Container, Reveal, SectionHeader, Tag } from "./ui";
+import { Code, Container, Reveal, SectionHeader, Tag } from "./ui";
+import { localizeProject, useLanguage } from "../i18n/context";
 
 const FILTERS = ["all", "web", "backend", "mobile"];
 
@@ -27,20 +28,23 @@ function fileName(project) {
 }
 
 function ProjectCard({ project, number, featured = false, onOpen }) {
+  const { t, lang } = useLanguage();
+  const view = localizeProject(project, lang);
+
   return (
     <button
       type="button"
       onClick={() => onOpen(project)}
-      aria-label={"Open case study: " + project.title}
+      aria-label={t.projects.openLabel + project.title}
       className={
-        "group block h-full w-full border border-line bg-panel text-left transition hover:border-accent/60 " +
+        "group block h-full w-full border border-line bg-panel text-start transition hover:border-accent/60 " +
         (featured ? "lg:grid lg:grid-cols-[1.1fr_0.9fr]" : "")
       }
     >
-      <div className={"border-b border-line bg-bg " + (featured ? "lg:border-b-0 lg:border-r" : "")}>
+      <div className={"border-b border-line bg-bg " + (featured ? "lg:border-b-0 lg:border-e" : "")}>
         <div className="flex justify-between gap-3 border-b border-line px-3 py-2 text-[11px] text-muted">
-          <span className="truncate">{fileName(project)}</span>
-          <span className="shrink-0">{project.role}</span>
+          <Code className="truncate">{fileName(project)}</Code>
+          <span className="shrink-0">{view.role}</span>
         </div>
         <div className={"overflow-hidden " + (featured ? "aspect-video lg:aspect-auto lg:h-[calc(100%-33px)]" : "aspect-video")}>
           {project.image ? (
@@ -60,7 +64,7 @@ function ProjectCard({ project, number, featured = false, onOpen }) {
 
       <div className="flex flex-col p-5 sm:p-6">
         <span className="text-xs text-muted">
-          <span className="text-accent">{String(number).padStart(2, "0")}</span> · {project.category.toLowerCase()}
+          <span className="text-accent">{String(number).padStart(2, "0")}</span> · {lang === "ar" ? view.category : view.category.toLowerCase()}
         </span>
         <h3
           className={
@@ -70,14 +74,15 @@ function ProjectCard({ project, number, featured = false, onOpen }) {
         >
           {project.title}
         </h3>
-        <p className="mt-3 text-sm leading-6 text-muted">{project.description}</p>
+        <p className="mt-3 text-sm leading-6 text-muted rtl:leading-7">{view.description}</p>
         <div className="mt-5 flex flex-wrap gap-2">
           {project.tech.slice(0, featured ? 8 : 5).map((item) => (
             <Tag key={item}>{item}</Tag>
           ))}
         </div>
         <span className="mt-6 text-sm text-accent">
-          open case_study <span className="inline-block transition group-hover:translate-x-1">→</span>
+          {t.projects.open}{" "}
+          <span className="inline-block transition group-hover:translate-x-1 rtl:group-hover:-translate-x-1">{t.projects.arrow}</span>
         </span>
       </div>
     </button>
@@ -85,6 +90,7 @@ function ProjectCard({ project, number, featured = false, onOpen }) {
 }
 
 function Projects() {
+  const { t, lang } = useLanguage();
   const [selectedProject, setSelectedProject] = useState(null);
   const closeModal = useCallback(() => setSelectedProject(null), []);
 
@@ -111,12 +117,12 @@ function Projects() {
       <Container>
         <SectionHeader
           index="03"
-          path="ls ~/projects"
-          title="Things I've built to solve real problems."
-          intro={projects.length + " projects across web, backend and mobile. Open any of them for the full case study."}
+          path={t.projects.path}
+          title={t.projects.title}
+          intro={t.projects.intro(projects.length)}
         />
 
-        <div role="group" aria-label="Filter projects" className="mb-8 flex flex-wrap gap-2">
+        <div role="group" aria-label={t.projects.filterLabel} className="mb-8 flex flex-wrap gap-2">
           {FILTERS.map((option) => {
             const count = option === "all" ? projects.length : projects.filter((p) => projectTags(p).includes(option)).length;
             const isActive = filter === option;
@@ -125,6 +131,7 @@ function Projects() {
                 key={option}
                 type="button"
                 aria-pressed={isActive}
+                dir="ltr"
                 onClick={() => setFilter(option)}
                 className={
                   "border px-3.5 py-2 text-sm transition " +
@@ -141,7 +148,7 @@ function Projects() {
 
         {featuredProjects.length > 0 && (
           <>
-            <p className="mb-4 text-xs text-muted">// featured</p>
+            <p className="mb-4 text-xs text-muted">{t.projects.featured}</p>
             <div className="space-y-4">
               {featuredProjects.map((project) => (
                 <Reveal key={project.id}>
@@ -154,7 +161,7 @@ function Projects() {
 
         {otherProjects.length > 0 && (
           <>
-            <p className={"mb-4 text-xs text-muted " + (featuredProjects.length > 0 ? "mt-12" : "")}>// more</p>
+            <p className={"mb-4 text-xs text-muted " + (featuredProjects.length > 0 ? "mt-12" : "")}>{t.projects.more}</p>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {otherProjects.map((project, index) => (
                 <Reveal key={project.id} delay={index * 0.05}>
@@ -166,7 +173,7 @@ function Projects() {
         )}
       </Container>
 
-      <ProjectModal project={selectedProject} onClose={closeModal} />
+      <ProjectModal project={localizeProject(selectedProject, lang)} onClose={closeModal} />
     </section>
   );
 }

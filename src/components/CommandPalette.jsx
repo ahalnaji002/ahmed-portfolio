@@ -5,6 +5,7 @@ import { projects } from "../data/projects";
 import { sections } from "../data/sections";
 import { useModalAccessibility } from "../hooks/useModalAccessibility";
 import { fetchGitActivity, timeAgo } from "../lib/github";
+import { SET_LANG_EVENT } from "../i18n/context";
 import { OPEN_PALETTE_EVENT, openProject, shortcutLabel } from "../lib/palette";
 
 const MAILTO = "mailto:" + profile.contact.email;
@@ -30,6 +31,7 @@ const HELP_LINES = [
   { text: "mail ahmed        write me an email · copy email" },
   { text: "open github       also: open linkedin" },
   { text: "git log           my latest GitHub activity" },
+  { text: "lang ar · lang en switch the site language" },
   { text: "whoami · ls · clear · exit" },
   { text: "psst… there might be a sudo command 👀", tone: "muted" },
 ];
@@ -129,6 +131,20 @@ const COMMANDS = [
       print([{ text: "opened LinkedIn in a new tab", tone: "ok" }]);
     },
   },
+  ...[
+    ["lang ar", "اعرض الموقع بالعربية", "ar", ["arabic", "عربي", "--lang=ar"]],
+    ["lang en", "Switch the site to English", "en", ["english", "--lang=en"]],
+  ].map(([label, hint, lang, aliases]) => ({
+    label,
+    hint,
+    group: "system",
+    aliases,
+    keywords: "language translate",
+    run: ({ print }) => {
+      window.dispatchEvent(new CustomEvent(SET_LANG_EVENT, { detail: lang }));
+      print([{ text: "locale set to " + lang + " ✓", tone: "ok" }]);
+    },
+  })),
   {
     label: "git log",
     hint: "My latest GitHub activity",
@@ -360,7 +376,8 @@ function CommandPalette() {
             role="dialog"
             aria-modal="true"
             aria-label="Command palette"
-            className="flex max-h-[80vh] w-full max-w-2xl flex-col border border-line bg-panel shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
+            dir="ltr"
+            className="flex text-left max-h-[80vh] w-full max-w-2xl flex-col border border-line bg-panel shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
           >
             <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-2.5 text-xs text-muted">
               <span>

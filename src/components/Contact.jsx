@@ -1,69 +1,63 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
-import { Container, Reveal, SectionHeader, Window } from "./ui";
+import { profile } from "../data/profile";
+import { useLanguage } from "../i18n/context";
+import { Code, Container, Reveal, SectionHeader, Window } from "./ui";
 
+// `copy` is what the copy button puts on the clipboard (the full URL for profiles).
 const contactLinks = [
-  { label: "email", value: "ahalnaji002@gmail.com", href: "mailto:ahalnaji002@gmail.com", copy: true },
-  { label: "linkedin", value: "ahmed-hashem-alnaji", href: "https://www.linkedin.com/in/ahmed-hashem-alnaji/", external: true },
-  { label: "github", value: "ahalnaji002", href: "https://github.com/ahalnaji002", external: true },
+  { label: "email", value: profile.contact.email, href: "mailto:" + profile.contact.email, copy: profile.contact.email },
+  { label: "linkedin", value: "ahmed-hashem-alnaji", href: profile.contact.linkedin, external: true, copy: profile.contact.linkedin },
+  { label: "github", value: "ahalnaji002", href: profile.contact.github, external: true, copy: profile.contact.github },
 ];
 
-const projectOptions = ["Web App", "Backend / API", "Mobile App"];
-const stageOptions = ["Just an idea", "Have a design", "Ready to build"];
-const priorityOptions = ["Launch quickly", "Clean architecture", "Scale later"];
-
-const projectMessages = {
-  "Web App": "turn your web app idea into a focused, practical product",
-  "Backend / API": "design a reliable backend with clean APIs and room to grow",
-  "Mobile App": "shape your mobile app into a smooth, useful experience",
-};
+const PROJECT_IDS = ["web", "backend", "mobile"];
+const STAGE_IDS = ["idea", "design", "ready"];
+const PRIORITY_IDS = ["fast", "clean", "scale"];
 
 function Contact() {
+  const { t } = useLanguage();
+  const c = t.contact;
   const [visitorName, setVisitorName] = useState("");
-  const [project, setProject] = useState(projectOptions[0]);
-  const [stage, setStage] = useState(stageOptions[0]);
-  const [priority, setPriority] = useState(priorityOptions[0]);
+  const [project, setProject] = useState(PROJECT_IDS[0]);
+  const [stage, setStage] = useState(STAGE_IDS[0]);
+  const [priority, setPriority] = useState(PRIORITY_IDS[0]);
 
-  const subject = encodeURIComponent(project + " project inquiry");
-  const introduction = visitorName.trim()
-    ? "I'm " + visitorName.trim() + ", and I'm interested in building a " + project + "."
-    : "I'm interested in building a " + project + ".";
+  const projectLabel = c.options.project[project];
+  const priorityLabel = c.options.priority[priority];
+  const subject = encodeURIComponent(c.email.subject(projectLabel));
   const body = encodeURIComponent(
-    [
-      "Hi Ahmed,",
-      "",
-      introduction,
-      "Current stage: " + stage,
-      "Priority: " + priority,
-      "",
-      "A short note about my idea:",
-      "",
-    ].join("\n"),
+    c.email.body({
+      name: visitorName.trim(),
+      project: projectLabel,
+      stage: c.options.stage[stage],
+      priority: priorityLabel,
+    }),
   );
-  const projectEmail = "mailto:ahalnaji002@gmail.com?subject=" + subject + "&body=" + body;
+  const projectEmail = "mailto:" + profile.contact.email + "?subject=" + subject + "&body=" + body;
 
   return (
     <section id="contact" className="border-t border-line py-16 sm:py-24">
       <Container>
         <SectionHeader
           index="06"
-          path="./contact.sh"
+          path={c.path}
           title={
             <>
-              Let&apos;s build something <span className="text-accent">that works.</span>
+              {c.title[0]}
+              <span className="text-accent">{c.title[1]}</span>
             </>
           }
-          intro="Tell me what you're building. In a few clicks, I'll prepare the first message so we can start with clarity."
+          intro={c.intro}
         />
 
         <div className="grid gap-4 lg:grid-cols-[1.35fr_0.65fr]">
           <Reveal>
-            <Window title="new_project.sh" meta="~20 sec">
+            <Window title="new_project.sh" meta={c.duration}>
               <div className="p-4 sm:p-6">
                 <label className="block">
                   <span className="mb-2 block text-sm">
-                    <span className="text-accent">--name</span>{" "}
-                    <span className="text-muted">What should I call you?</span>
+                    <Code className="text-accent">--name</Code> <span className="text-muted">{c.nameLabel}</span>
                   </span>
                   <input
                     type="text"
@@ -71,15 +65,15 @@ function Contact() {
                     onChange={(event) => setVisitorName(event.target.value)}
                     maxLength={60}
                     autoComplete="name"
-                    placeholder="your name (optional)"
+                    placeholder={c.namePlaceholder}
                     className="w-full border border-line bg-bg px-3.5 py-3 text-sm text-ink outline-none transition placeholder:text-muted/60 focus:border-accent"
                   />
                 </label>
 
                 <div className="mt-6 space-y-6">
-                  <ChoiceGroup flag="--type" label="What are we building?" options={projectOptions} value={project} onChange={setProject} />
-                  <ChoiceGroup flag="--stage" label="Where are you now?" options={stageOptions} value={stage} onChange={setStage} />
-                  <ChoiceGroup flag="--priority" label="What matters most?" options={priorityOptions} value={priority} onChange={setPriority} />
+                  <ChoiceGroup flag="--type" label={c.typeLabel} ids={PROJECT_IDS} labels={c.options.project} value={project} onChange={setProject} />
+                  <ChoiceGroup flag="--stage" label={c.stageLabel} ids={STAGE_IDS} labels={c.options.stage} value={stage} onChange={setStage} />
+                  <ChoiceGroup flag="--priority" label={c.priorityLabel} ids={PRIORITY_IDS} labels={c.options.priority} value={priority} onChange={setPriority} />
                 </div>
 
                 <motion.div
@@ -87,30 +81,28 @@ function Contact() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.25 }}
-                  className="mt-7 border border-line bg-bg p-4 text-sm leading-6"
+                  className="mt-7 border border-line bg-bg p-4 text-sm leading-6 rtl:leading-7"
                   aria-live="polite"
                 >
-                  <p className="text-ok">&gt; This sounds like a good fit.</p>
-                  <p className="mt-1 text-muted">
-                    I can help you {projectMessages[project]}, with {priority.toLowerCase()} in mind.
+                  <p className="text-ok">
+                    <Code>&gt;</Code> {c.fit}
                   </p>
+                  <p className="mt-1 text-muted">{c.fitDetail(c.messages[project], priorityLabel)}</p>
                 </motion.div>
 
                 <a
                   href={projectEmail}
                   className="mt-4 block bg-accent px-5 py-3.5 text-center font-bold text-bg transition hover:bg-ink"
                 >
-                  ./start-project →
+                  {c.cta}
                 </a>
-                <p className="mt-2 text-center text-xs text-muted">
-                  Opens your email app with a draft message ready to send.
-                </p>
+                <p className="mt-2 text-center text-xs text-muted">{c.ctaNote}</p>
               </div>
             </Window>
           </Reveal>
 
           <Reveal delay={0.1} className="flex flex-col gap-4">
-            <Window title="direct" meta="any channel">
+            <Window title={c.direct} meta={c.anyChannel}>
               <ul>
                 {contactLinks.map((link) => (
                   <li key={link.label} className="flex items-stretch border-b border-line last:border-0">
@@ -121,19 +113,17 @@ function Contact() {
                       className="group flex min-w-0 flex-1 items-center justify-between gap-3 px-4 py-4 transition hover:bg-bg"
                     >
                       <span className="min-w-0">
-                        <span className="block text-xs text-muted">{link.label}</span>
-                        <span className="mt-1 block truncate text-sm group-hover:text-accent">{link.value}</span>
+                        <Code className="block text-xs text-muted">{link.label}</Code>
+                        <Code className="mt-1 block truncate text-sm group-hover:text-accent">{link.value}</Code>
                       </span>
                       <span className="text-muted transition group-hover:text-accent">↗</span>
                     </a>
-                    {link.copy && <CopyButton value={link.value} />}
+                    <CopyButton value={link.copy} name={link.label} />
                   </li>
                 ))}
               </ul>
             </Window>
-            <p className="border border-line p-4 text-sm leading-6 text-muted">
-              Clear scope, honest communication, and practical solutions from the first conversation.
-            </p>
+            <p className="border border-line p-4 text-sm leading-6 text-muted rtl:leading-7">{c.note}</p>
           </Reveal>
         </div>
       </Container>
@@ -141,7 +131,8 @@ function Contact() {
   );
 }
 
-function CopyButton({ value }) {
+function CopyButton({ value, name }) {
+  const { t } = useLanguage();
   const [status, setStatus] = useState("idle");
   const timer = useRef(null);
 
@@ -162,32 +153,35 @@ function CopyButton({ value }) {
     <button
       type="button"
       onClick={copy}
-      aria-label={"Copy " + value}
+      aria-label={"Copy " + name + ": " + value}
+      title={value}
       className={
         "w-24 shrink-0 border-s border-line text-xs transition hover:bg-bg " +
         (status === "copied" ? "text-ok" : status === "failed" ? "text-[#ff7b72]" : "text-muted hover:text-accent")
       }
     >
-      <span aria-live="polite">{status === "copied" ? "copied ✓" : status === "failed" ? "blocked ✗" : "copy"}</span>
+      <span aria-live="polite">
+        {status === "copied" ? t.contact.copied : status === "failed" ? t.contact.copyFailed : t.contact.copy}
+      </span>
     </button>
   );
 }
 
-function ChoiceGroup({ flag, label, options, value, onChange }) {
+function ChoiceGroup({ flag, label, ids, labels, value, onChange }) {
   return (
     <fieldset>
       <legend className="mb-2.5 text-sm">
-        <span className="text-accent">{flag}</span> <span className="text-muted">{label}</span>
+        <Code className="text-accent">{flag}</Code> <span className="text-muted">{label}</span>
       </legend>
       <div className="flex flex-wrap gap-2">
-        {options.map((option) => {
-          const isSelected = value === option;
+        {ids.map((id) => {
+          const isSelected = value === id;
           return (
             <button
-              key={option}
+              key={id}
               type="button"
               aria-pressed={isSelected}
-              onClick={() => onChange(option)}
+              onClick={() => onChange(id)}
               className={
                 "border px-3.5 py-2 text-sm transition " +
                 (isSelected
@@ -196,7 +190,7 @@ function ChoiceGroup({ flag, label, options, value, onChange }) {
               }
             >
               {isSelected ? "● " : "○ "}
-              {option}
+              {labels[id]}
             </button>
           );
         })}

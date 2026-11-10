@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { sections } from "../data/sections";
 import { openPalette, shortcutLabel } from "../lib/palette";
+import { useLanguage } from "../i18n/context";
 
 function Navbar() {
   const [activeSection, setActiveSection] = useState("home");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t, toggleLang } = useLanguage();
 
   useEffect(() => {
     const closeOnEscape = (event) => {
@@ -38,7 +40,7 @@ function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-bg/95">
       <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <a href="#home" className="text-muted" aria-label="Ahmed Al Naji — back to top">
+        <a href="#home" dir="ltr" className="text-muted" aria-label="Ahmed Al Naji — back to top">
           <span className="font-medium text-accent">ahmed</span>@alnaji:~$ <span className="cursor" aria-hidden="true" />
         </a>
 
@@ -53,25 +55,39 @@ function Navbar() {
                 className={"transition " + (isActive ? "text-accent" : "text-muted hover:text-ink")}
               >
                 <span className="text-line">/</span>
-                {item.label}
+                {t.nav.labels[item.id]}
               </a>
             );
           })}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <button
+            type="button"
+            onClick={() => {
+              setMobileOpen(false);
+              toggleLang();
+            }}
+            aria-label={t.nav.switchLabel}
+            title={t.nav.switchLabel}
+            className="px-1 py-1.5 text-xs text-muted transition hover:text-accent"
+          >
+            <span dir="ltr" className="hidden md:inline">{t.nav.switchTo}</span>
+            <span className="md:hidden">{t.nav.switchToShort}</span>
+          </button>
+
           <button
             type="button"
             onClick={() => {
               setMobileOpen(false);
               openPalette();
             }}
-            aria-label={"Open command line (" + shortcutLabel + ")"}
+            aria-label={t.nav.paletteLabel + " (" + shortcutLabel + ")"}
             title={"Command line · " + shortcutLabel}
             className="border border-line px-2.5 py-1.5 text-xs text-muted transition hover:border-accent hover:text-accent"
           >
             <span className="text-accent">&gt;_</span>
-            <span className="ml-2 hidden md:inline">{shortcutLabel}</span>
+            <span className="ms-2 hidden md:inline">{shortcutLabel}</span>
           </button>
 
           <button
@@ -81,7 +97,7 @@ function Navbar() {
             aria-controls="mobile-navigation"
             className="py-2 text-muted transition hover:text-ink lg:hidden"
           >
-            {mobileOpen ? "[close]" : "[menu]"}
+            {mobileOpen ? t.nav.close : t.nav.menu}
           </button>
         </div>
       </nav>
@@ -106,7 +122,9 @@ function Navbar() {
                     }
                   >
                     <span>
-                      <span className="text-muted">cd </span>~/{item.label}
+                      <span className="text-muted">{t.nav.cd}</span>
+                      {t.nav.cd ? "~/" : ""}
+                      {t.nav.labels[item.id]}
                     </span>
                     <span className="text-xs text-muted">0{index + 1}</span>
                   </a>

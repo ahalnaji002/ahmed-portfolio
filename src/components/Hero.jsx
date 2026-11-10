@@ -4,7 +4,8 @@ import heroImage from "../assets/ahmed-hero-cutout.webp";
 import { API_PATH, heroSummary } from "../data/profile";
 import { openPalette, shortcutLabel } from "../lib/palette";
 import GitActivity from "./GitActivity";
-import { Container } from "./ui";
+import { Code, Container } from "./ui";
+import { useLanguage } from "../i18n/context";
 
 const links = [
   { label: "cv.pdf ↓", href: "/Ahmed_Al_Naji_CV.pdf", download: "Ahmed_Al_Naji_CV.pdf" },
@@ -30,6 +31,7 @@ function JsonValue({ values }) {
 }
 
 function Hero() {
+  const { t } = useLanguage();
   const photoRef = useRef(null);
   // scrollYProgress: 0 when the photo enters from the bottom, 1 once it has left through the top.
   const { scrollYProgress } = useScroll({ target: photoRef, offset: ["start end", "end start"] });
@@ -55,7 +57,7 @@ function Hero() {
       <Container className="grid gap-10 pb-16 pt-10 sm:pt-14 lg:grid-cols-[1.25fr_0.75fr] lg:gap-14 lg:pb-24 lg:pt-20">
         <div>
           <motion.p {...fadeUp(0)} className="text-xs text-muted">
-            // full-stack developer · status: <span className="text-ok">● open_to_work</span>
+            {t.hero.tag} <Code className="text-ok">● open_to_work</Code>
           </motion.p>
           <motion.div {...fadeUp(0.04)}>
             <GitActivity className="mt-1.5" />
@@ -63,26 +65,31 @@ function Hero() {
 
           <motion.h1
             {...fadeUp(0.08)}
-            className="mt-5 font-display text-[clamp(44px,11.5vw,108px)] font-extrabold lg:text-[72px] xl:text-[80px] leading-[0.95] tracking-[-0.035em]"
+            className="mt-5 font-display text-[clamp(44px,11.5vw,108px)] font-extrabold leading-[0.95] tracking-[-0.035em] lg:text-[72px] xl:text-[80px] rtl:leading-[1.2]"
           >
-            I build the part
+            {t.hero.title[0]}
             <br />
-            you <span className="text-accent">don&apos;t see.</span>
+            {t.hero.title[1]}
+            <span className="text-accent">{t.hero.title[2]}</span>
           </motion.h1>
 
-          <motion.p {...fadeUp(0.16)} lang="ar" dir="rtl" className="mt-4 w-fit font-ar text-xl text-muted">
-            أحمد هاشم الناجي
+          <motion.p
+            {...fadeUp(0.16)}
+            lang={t.hero.altNameLang}
+            dir={t.hero.altNameLang === "ar" ? "rtl" : "ltr"}
+            className={"mt-4 w-fit text-xl text-muted " + (t.hero.altNameLang === "ar" ? "font-ar" : "font-mono")}
+          >
+            {t.hero.altName}
           </motion.p>
 
-          <motion.p {...fadeUp(0.22)} className="mt-6 max-w-[54ch] leading-7 text-ink/75">
-            Ahmed Hashem Al Naji — Computer Engineering student. I design REST
-            APIs, databases and auth flows, then ship the React &amp; Flutter apps
-            on top of them.
+          <motion.p {...fadeUp(0.22)} className="mt-6 max-w-[54ch] leading-7 text-ink/75 rtl:leading-8">
+            {t.hero.lede}
           </motion.p>
 
           <motion.div {...fadeUp(0.3)} className="mt-7 flex flex-wrap gap-2.5">
             <a
               href="#projects"
+              dir="ltr"
               className="bg-accent px-4 py-3 font-bold text-bg transition hover:bg-ink"
             >
               ./view-work
@@ -94,6 +101,7 @@ function Hero() {
                 download={link.download}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noreferrer" : undefined}
+                dir="ltr"
                 className="border border-line px-4 py-3 transition hover:border-ink"
               >
                 {link.label}
@@ -105,13 +113,19 @@ function Hero() {
             {...fadeUp(0.38)}
             type="button"
             onClick={openPalette}
-            className="mt-5 text-left text-xs text-muted transition hover:text-ink"
+            className="mt-5 text-start text-xs text-muted transition hover:text-ink"
           >
             <span className="hidden md:inline">
-              tip: press <kbd className="text-accent">/</kbd> or <kbd className="text-accent">{shortcutLabel}</kbd> to open the command line
+              {t.hero.tip[0]}
+              <kbd className="text-accent">/</kbd>
+              {t.hero.tip[1]}
+              <kbd dir="ltr" className="text-accent">{shortcutLabel}</kbd>
+              {t.hero.tip[2]}
             </span>
             <span className="md:hidden">
-              tip: tap <span className="text-accent">&gt;_</span> to open the command line
+              {t.hero.tipMobile[0]}
+              <Code className="text-accent">&gt;_</Code>
+              {t.hero.tipMobile[1]}
             </span>
           </motion.button>
         </div>
@@ -125,7 +139,7 @@ function Hero() {
             <div className="relative h-[92%]">
               <img
                 src={heroImage}
-                alt="Ahmed Hashem Al Naji"
+                alt={t.hero.photoAlt}
                 fetchPriority="high"
                 className="h-full w-auto object-contain object-bottom"
               />
@@ -143,17 +157,17 @@ function Hero() {
               className="absolute inset-x-0 z-10 h-0.5 -translate-y-1/2 bg-accent shadow-[0_0_12px_2px_rgba(255,178,36,0.55)]"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent from-60% to-bg/60" />
-            <motion.span className="absolute bottom-3 left-4 z-10 text-[11px] text-muted">
+            <motion.span dir="ltr" className="absolute bottom-3 left-4 z-10 text-[11px] text-muted">
               {photoLabel}
             </motion.span>
           </div>
 
-          <div className="border border-line bg-panel">
+          <div dir="ltr" className="border border-line bg-panel text-left">
             <a
               href={API_PATH}
               target="_blank"
               rel="noreferrer"
-              title="Open the live API response"
+              title={t.hero.apiTitle}
               className="group flex justify-between gap-3 border-b border-line px-4 py-2.5 text-xs text-muted transition hover:bg-bg"
             >
               <span>
@@ -161,7 +175,7 @@ function Hero() {
               </span>
               <span>
                 <span className="text-ok">200 OK</span>{" "}
-                <span className="text-accent">· try it ↗</span>
+                <span className="text-accent">{t.hero.tryIt}</span>
               </span>
             </a>
             <pre className="whitespace-pre-wrap p-4 text-[12.5px] leading-[1.7]">
