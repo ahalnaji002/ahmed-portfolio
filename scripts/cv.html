@@ -1,0 +1,115 @@
+<!doctype html>
+<!--
+  CV source. Regenerate public/Ahmed_Al_Naji_CV.pdf with:
+    npm run cv
+  Kept as plain, selectable text in Arial so ATS parsers read it correctly.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Ahmed Hashem Al Naji - CV</title>
+<meta name="author" content="Ahmed Hashem Al Naji" />
+<meta name="description" content="Full-Stack Developer CV" />
+<style>
+  @page { size: Letter; margin: 0; }
+  :root { --ink: #17243b; --blue: #2563eb; --muted: #4b5563; --rule: #d6dbe3; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body {
+    width: 8.5in; padding: 34pt 38pt 30pt;
+    font-family: Arial, Helvetica, sans-serif; font-size: 8.8pt; line-height: 1.32; color: var(--ink);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  a { color: var(--blue); text-decoration: none; }
+
+  header { text-align: center; }
+  h1 { font-size: 21pt; font-weight: 700; line-height: 1.15; }
+  .headline { font-size: 11pt; font-weight: 700; color: var(--blue); margin-top: 1pt; }
+  .contact { font-size: 8.3pt; color: var(--muted); margin-top: 3pt; }
+  .contact .sep { margin: 0 4pt; }
+
+  h2 {
+    font-size: 10.5pt; font-weight: 700; letter-spacing: .01em;
+    border-bottom: 0.75pt solid var(--rule); padding-bottom: 1.5pt; margin: 9pt 0 3.5pt;
+  }
+  .indent { padding-left: 6pt; }
+
+  .skills { display: grid; grid-template-columns: max-content 1fr; column-gap: 6pt; row-gap: 1.5pt; }
+  .skills dt { font-weight: 700; }
+
+  .role { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; margin-top: 3pt; }
+  .role .date { color: var(--muted); font-size: 8.3pt; white-space: nowrap; padding-left: 8pt; }
+  ul { list-style: none; }
+  li { position: relative; padding-left: 12pt; margin-top: 1.5pt; }
+  li::before { content: "•"; position: absolute; left: 4pt; }
+
+  .certs { display: grid; grid-template-columns: 1fr 1fr; column-gap: 12pt; }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Ahmed Hashem Al Naji</h1>
+    <p class="headline">Full-Stack Developer | Backend-Focused</p>
+    <p class="contact">
+      Gaza, Palestine<span class="sep">|</span><a href="mailto:ahalnaji002@gmail.com">ahalnaji002@gmail.com</a><span class="sep">|</span><a href="https://www.linkedin.com/in/ahmed-hashem-alnaji/">LinkedIn</a><span class="sep">|</span><a href="https://github.com/ahalnaji002">GitHub</a><span class="sep">|</span><a href="https://ahmed-alnaji.vercel.app/">Portfolio</a>
+    </p>
+  </header>
+
+  <h2>PROFESSIONAL SUMMARY</h2>
+  <p class="indent">
+    Computer Engineering student and backend-focused Full-Stack Developer with hands-on experience building web applications and
+    REST APIs using React, Next.js, Node.js, NestJS, Express.js, Laravel, MySQL, and PostgreSQL, plus cross-platform mobile apps with
+    Flutter and Firebase. Experienced in authentication, role-based access control, relational database design, API integration,
+    containerized workflows, and collaborative Git workflows. Seeking a full-stack or software engineering internship.
+  </p>
+
+  <h2>TECHNICAL SKILLS</h2>
+  <dl class="skills indent">
+    <dt>Frontend:</dt><dd>React, Next.js, TypeScript, JavaScript, Tailwind CSS, HTML, CSS</dd>
+    <dt>Backend:</dt><dd>Node.js, NestJS, Express.js, Laravel (PHP), REST APIs, JWT &amp; Sanctum Auth, Swagger / OpenAPI, Redis</dd>
+    <dt>Databases &amp; ORMs:</dt><dd>PostgreSQL, MySQL, SQLite, Prisma, TypeORM, Knex.js, Database Design (ERD)</dd>
+    <dt>Mobile &amp; Cloud:</dt><dd>Flutter, Dart, Firebase (Auth, Firestore, Cloud Functions), Offline Sync (Drift / SQLite)</dd>
+    <dt>DevOps &amp; Tools:</dt><dd>Docker, Git, GitHub, GitHub Actions (CI/CD), Jest, Postman, Linux, Vercel, Jira</dd>
+  </dl>
+
+  <h2>EXPERIENCE</h2>
+  <div class="role"><span>Backend Developer Intern | Manara | Remote</span><span class="date">Jun 2026 - Present</span></div>
+  <ul>
+    <li>Developed 25 REST API endpoints for a volunteer coordination system covering volunteers, tasks, work locations, assignments, and user profiles.</li>
+    <li>Implemented Laravel Sanctum authentication and role-based authorization for two user roles, with Eloquent relationships, Form Request validation, and policies.</li>
+    <li>Designed relational database structures and centralized JSON error handling; validated endpoints with Postman and collaborated through Git and GitHub.</li>
+  </ul>
+
+  <h2>SELECTED PROJECTS</h2>
+  <div class="role"><span>Healthcare Conflict Management System (HCMS) | Backend Developer &amp; Team Lead</span><span class="date">Feb 2026 - Jun 2026</span></div>
+  <ul>
+    <li>Built and integrated 15 REST API endpoints connecting patients, doctors, NGOs, and administrators; implemented JWT authentication and role-based access for four user roles.</li>
+    <li>Led an eight-member software engineering team through Agile practices and Jira, coordinating backend, frontend, and database integration.</li>
+  </ul>
+  <div class="role"><span>Sanabil Educational Platform | Full-Stack Developer | Solo Project</span></div>
+  <ul>
+    <li>Built an Arabic RTL learning platform for students across Palestine, with grade-first subject discovery, approved Google Drive resources, and a protected admin dashboard.</li>
+    <li>Developed the React/Next.js frontend and Node.js/Express API with Prisma and MySQL; independently delivered the full-stack product.</li>
+  </ul>
+  <div class="role"><span>Salman Family Registry | Backend Developer | Client Project</span><span class="date">Jul 2026 - Aug 2026</span></div>
+  <ul>
+    <li>Developed 63 REST API endpoints using Node.js, Express.js, MySQL, and Knex.js; implemented JWT authentication, role-based access for three user roles, and Excel data export.</li>
+  </ul>
+
+  <h2>EDUCATION</h2>
+  <div class="role"><span>B.Sc. in Computer Engineering | Islamic University of Gaza | Gaza, Palestine</span><span class="date">Expected Jan 2027</span></div>
+
+  <h2>SELECTED CERTIFICATIONS</h2>
+  <ul class="certs">
+    <li>Backend Development Professional Training (250 Hours) | Manara, Oct 2026</li>
+    <li>Career Essentials in GitHub | LinkedIn Learning &amp; GitHub, Sep 2026</li>
+    <li>Frontend Developer (React) | HackerRank, Sep 2026</li>
+    <li>Understanding Prompt Engineering | DataCamp, Sep 2026</li>
+    <li>Node.js: Securing RESTful APIs | LinkedIn Learning, Sep 2026</li>
+    <li>Practical GitHub Actions | LinkedIn Learning, Aug 2026</li>
+  </ul>
+
+  <h2>LANGUAGES</h2>
+  <p class="indent">Arabic: Native<span style="margin: 0 8pt">|</span>English: Intermediate</p>
+</body>
+</html>
