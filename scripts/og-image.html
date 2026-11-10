@@ -1,0 +1,83 @@
+<!doctype html>
+<!--
+  Social share card (1200x630). Regenerate public/og-image.png with:
+    npm run og
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Archivo:wght@800&family=IBM+Plex+Sans+Arabic:wght@600&display=block" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0e0e0d; --panel: #161614; --line: #2a2a27; --ink: #ecebe6;
+    --muted: #8a887f; --accent: #ffb224; --ok: #7ee787;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: "JetBrains Mono", monospace; -webkit-font-smoothing: antialiased;
+    display: grid; grid-template-rows: 64px 1fr 64px;
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; padding: 0 56px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 20px; }
+  .bar b { color: var(--accent); font-weight: 500; }
+  .cursor { display: inline-block; width: 11px; height: 22px; background: var(--accent); vertical-align: -3px; margin-left: 6px; }
+  .bar .status { font-size: 17px; }
+  .bar .status span { color: var(--ok); }
+
+  main { display: grid; grid-template-columns: 1fr 330px; gap: 56px; padding: 44px 56px 0; }
+  .tag { color: var(--muted); font-size: 18px; }
+  h1 { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 92px; line-height: .95; letter-spacing: -.035em; margin-top: 20px; }
+  h1 em { font-style: normal; color: var(--accent); }
+  .name { margin-top: 26px; font-size: 24px; }
+  .ar { font-family: "IBM Plex Sans Arabic", sans-serif; color: var(--muted); font-size: 24px; margin-top: 8px; direction: rtl; text-align: left; unicode-bidi: plaintext; }
+
+  .photo { position: relative; height: 410px; border: 1px solid var(--line); background: var(--panel); overflow: hidden; display: flex; align-items: flex-end; justify-content: center; }
+  .photo .layer { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; }
+  .photo img { height: 94%; width: auto; }
+  .photo .gray { clip-path: inset(0 0 52% 0); }
+  .photo .gray img { filter: grayscale(1) contrast(1.1); }
+  .scan { position: absolute; left: 0; right: 0; top: 48%; height: 3px; background: var(--accent); box-shadow: 0 0 16px 3px rgba(255,178,36,.55); z-index: 3; }
+  .c { position: absolute; width: 18px; height: 18px; border: 0 solid var(--accent); z-index: 4; }
+  .tl { top: 10px; left: 10px; border-width: 3px 0 0 3px; } .tr { top: 10px; right: 10px; border-width: 3px 3px 0 0; }
+  .bl { bottom: 10px; left: 10px; border-width: 0 0 3px 3px; } .br { bottom: 10px; right: 10px; border-width: 0 3px 3px 0; }
+  .photo::after { content: ""; position: absolute; inset: 0; z-index: 2; background: linear-gradient(transparent 72%, rgba(14,14,13,.85)); }
+  .photo .lbl { position: absolute; left: 38px; bottom: 14px; z-index: 4; font-size: 14px; color: #b9b7ae; }
+
+  footer { display: flex; align-items: center; justify-content: space-between; padding: 0 56px; border-top: 1px solid var(--line); font-size: 20px; color: var(--muted); }
+  footer .m { color: var(--accent); }
+  footer .ok { color: var(--ok); }
+  footer .url { color: var(--ink); }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <span><b>ahmed</b>@alnaji:~$<span class="cursor"></span></span>
+    <span class="status">status: <span>● open_to_work</span></span>
+  </div>
+
+  <main>
+    <div>
+      <p class="tag">// full-stack developer · backend first</p>
+      <h1>I build the part<br />you <em>don't see.</em></h1>
+      <p class="name">Ahmed Hashem Al Naji</p>
+      <p class="ar">أحمد هاشم الناجي</p>
+    </div>
+
+    <div class="photo">
+      <div class="layer"><img src="../src/assets/ahmed-hero-cutout.webp" alt="" /></div>
+      <div class="layer gray"><img src="../src/assets/ahmed-hero-cutout.webp" alt="" /></div>
+      <span class="scan"></span>
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <span class="lbl">processing… 48%</span>
+    </div>
+  </main>
+
+  <footer>
+    <span><span class="m">GET</span> /api/ahmed <span class="ok">200 OK</span></span>
+    <span class="url">ahmed-alnaji.vercel.app</span>
+  </footer>
+</body>
+</html>
