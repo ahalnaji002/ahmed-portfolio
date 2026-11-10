@@ -16,7 +16,12 @@ function Skills() {
 
         <div className="grid gap-4 md:grid-cols-2">
           {skillGroups.map((group, index) => (
-            <Reveal key={group.id} delay={index * 0.05}>
+            <Reveal
+              key={group.id}
+              delay={index * 0.05}
+              // An odd last group fills the whole row instead of leaving a gap.
+              className={index === skillGroups.length - 1 && skillGroups.length % 2 === 1 ? "md:col-span-2" : ""}
+            >
               <Window
                 title={<span className="text-ink">{folderName(group.title)}</span>}
                 meta={group.skills.length + " " + t.skills.items}

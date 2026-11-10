@@ -1,7 +1,7 @@
 import { useLanguage } from "../i18n/context";
 import { Code, Container, Reveal, SectionHeader, Tag, Window } from "./ui";
 
-const technologies = ["React", "Next.js", "Node.js", "NestJS", "Express.js", "Laravel", "MySQL", "PostgreSQL", "Flutter", "Firebase"];
+const technologies = ["React", "Next.js", "Node.js", "NestJS", "Laravel", "PostgreSQL", "MySQL", "Flutter", "Firebase", "Docker"];
 
 function Journey() {
   const { t } = useLanguage();
