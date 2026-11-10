@@ -4,6 +4,24 @@ import { OPEN_PROJECT_EVENT } from "../lib/palette";
 import ProjectModal from "./ProjectModal";
 import { Container, Reveal, SectionHeader, Tag } from "./ui";
 
+const FILTERS = ["all", "web", "backend", "mobile"];
+
+// Tags come from the stack, so new projects are filtered without extra data.
+function projectTags(project) {
+  const tech = project.tech.map((item) => item.toLowerCase());
+  const has = (...names) => names.some((name) => tech.some((item) => item.startsWith(name)));
+  const tags = [];
+  const backendOnly = project.category.toLowerCase().startsWith("backend");
+  if (has("react", "next.js") && !has("flutter") && !backendOnly) tags.push("web");
+  if (has("node.js", "express", "laravel")) tags.push("backend");
+  if (has("flutter")) tags.push("mobile");
+  return tags;
+}
+
+// Featured first, then the rest; numbers stay stable while filtering.
+const orderedProjects = [...projects.filter((p) => p.featured), ...projects.filter((p) => !p.featured)];
+const numberOf = (project) => orderedProjects.indexOf(project) + 1;
+
 function fileName(project) {
   return project.image ? project.image.split("/").pop() : project.id + ".md";
 }
@@ -83,8 +101,10 @@ function Projects() {
     return () => window.removeEventListener(OPEN_PROJECT_EVENT, onOpenProject);
   }, []);
 
-  const featuredProjects = projects.filter((project) => project.featured);
-  const otherProjects = projects.filter((project) => !project.featured);
+  const [filter, setFilter] = useState("all");
+  const matches = (project) => filter === "all" || projectTags(project).includes(filter);
+  const featuredProjects = orderedProjects.filter((project) => project.featured && matches(project));
+  const otherProjects = orderedProjects.filter((project) => !project.featured && matches(project));
 
   return (
     <section id="projects" className="border-t border-line py-16 sm:py-24">
@@ -96,27 +116,54 @@ function Projects() {
           intro={projects.length + " projects across web, backend and mobile. Open any of them for the full case study."}
         />
 
-        <p className="mb-4 text-xs text-muted">// featured</p>
-        <div className="space-y-4">
-          {featuredProjects.map((project, index) => (
-            <Reveal key={project.id}>
-              <ProjectCard project={project} number={index + 1} featured onOpen={setSelectedProject} />
-            </Reveal>
-          ))}
+        <div role="group" aria-label="Filter projects" className="mb-8 flex flex-wrap gap-2">
+          {FILTERS.map((option) => {
+            const count = option === "all" ? projects.length : projects.filter((p) => projectTags(p).includes(option)).length;
+            const isActive = filter === option;
+            return (
+              <button
+                key={option}
+                type="button"
+                aria-pressed={isActive}
+                onClick={() => setFilter(option)}
+                className={
+                  "border px-3.5 py-2 text-sm transition " +
+                  (isActive
+                    ? "border-accent bg-accent/10 text-accent"
+                    : "border-line text-muted hover:border-ink hover:text-ink")
+                }
+              >
+                --{option} <span className={isActive ? "text-accent/70" : "text-muted/60"}>({count})</span>
+              </button>
+            );
+          })}
         </div>
 
-        <p className="mb-4 mt-12 text-xs text-muted">// more</p>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {otherProjects.map((project, index) => (
-            <Reveal key={project.id} delay={index * 0.05}>
-              <ProjectCard
-                project={project}
-                number={featuredProjects.length + index + 1}
-                onOpen={setSelectedProject}
-              />
-            </Reveal>
-          ))}
-        </div>
+        {featuredProjects.length > 0 && (
+          <>
+            <p className="mb-4 text-xs text-muted">// featured</p>
+            <div className="space-y-4">
+              {featuredProjects.map((project) => (
+                <Reveal key={project.id}>
+                  <ProjectCard project={project} number={numberOf(project)} featured onOpen={setSelectedProject} />
+                </Reveal>
+              ))}
+            </div>
+          </>
+        )}
+
+        {otherProjects.length > 0 && (
+          <>
+            <p className={"mb-4 text-xs text-muted " + (featuredProjects.length > 0 ? "mt-12" : "")}>// more</p>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {otherProjects.map((project, index) => (
+                <Reveal key={project.id} delay={index * 0.05}>
+                  <ProjectCard project={project} number={numberOf(project)} onOpen={setSelectedProject} />
+                </Reveal>
+              ))}
+            </div>
+          </>
+        )}
       </Container>
 
       <ProjectModal project={selectedProject} onClose={closeModal} />
