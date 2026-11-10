@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Container, Reveal, SectionHeader, Window } from "./ui";
 
 const contactLinks = [
-  { label: "email", value: "ahalnaji002@gmail.com", href: "mailto:ahalnaji002@gmail.com" },
+  { label: "email", value: "ahalnaji002@gmail.com", href: "mailto:ahalnaji002@gmail.com", copy: true },
   { label: "linkedin", value: "ahmed-hashem-alnaji", href: "https://www.linkedin.com/in/ahmed-hashem-alnaji/", external: true },
   { label: "github", value: "ahalnaji002", href: "https://github.com/ahalnaji002", external: true },
 ];
@@ -113,12 +113,12 @@ function Contact() {
             <Window title="direct" meta="any channel">
               <ul>
                 {contactLinks.map((link) => (
-                  <li key={link.label} className="border-b border-line last:border-0">
+                  <li key={link.label} className="flex items-stretch border-b border-line last:border-0">
                     <a
                       href={link.href}
                       target={link.external ? "_blank" : undefined}
                       rel={link.external ? "noreferrer" : undefined}
-                      className="group flex items-center justify-between gap-3 px-4 py-4 transition hover:bg-bg"
+                      className="group flex min-w-0 flex-1 items-center justify-between gap-3 px-4 py-4 transition hover:bg-bg"
                     >
                       <span className="min-w-0">
                         <span className="block text-xs text-muted">{link.label}</span>
@@ -126,6 +126,7 @@ function Contact() {
                       </span>
                       <span className="text-muted transition group-hover:text-accent">↗</span>
                     </a>
+                    {link.copy && <CopyButton value={link.value} />}
                   </li>
                 ))}
               </ul>
@@ -137,6 +138,38 @@ function Contact() {
         </div>
       </Container>
     </section>
+  );
+}
+
+function CopyButton({ value }) {
+  const [status, setStatus] = useState("idle");
+  const timer = useRef(null);
+
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setStatus("copied");
+    } catch {
+      setStatus("failed");
+    }
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setStatus("idle"), 2000);
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={copy}
+      aria-label={"Copy " + value}
+      className={
+        "w-24 shrink-0 border-s border-line text-xs transition hover:bg-bg " +
+        (status === "copied" ? "text-ok" : status === "failed" ? "text-[#ff7b72]" : "text-muted hover:text-accent")
+      }
+    >
+      <span aria-live="polite">{status === "copied" ? "copied ✓" : status === "failed" ? "blocked ✗" : "copy"}</span>
+    </button>
   );
 }
 
