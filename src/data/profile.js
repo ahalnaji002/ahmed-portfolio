@@ -27,7 +27,7 @@ export const profile = {
 export const heroSummary = [
   ["role", [profile.role]],
   ["focus", [profile.focus]],
-  ["stack", ["Node", "Express", "Laravel", "React", "Flutter"]],
+  ["stack", ["Node", "NestJS", "Laravel", "React", "Next.js", "Flutter"]],
   ["databases", ["MySQL", "PostgreSQL"]],
 ];
 

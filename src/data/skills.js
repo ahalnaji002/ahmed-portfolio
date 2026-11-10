@@ -4,13 +4,13 @@ export const skillGroups = [
     title: "Frontend",
     description:
       "Creating modern, responsive interfaces with clean architecture and smooth user experiences.",
-    skills: ["React", "JavaScript", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "Responsive Design", "React Router"],
+    skills: ["React", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS", "HTML5", "CSS3", "Responsive Design", "React Router"],
   },
   {
     id: "backend",
     title: "Backend",
     description: "Developing APIs, business logic, and secure backend systems.",
-    skills: ["Node.js", "Express.js", "Laravel", "PHP", "REST APIs", "JWT Authentication", "API Design", "MVC Architecture"],
+    skills: ["Node.js", "NestJS", "Express.js", "Laravel", "PHP", "REST APIs", "JWT Authentication", "API Design", "MVC Architecture"],
   },
   {
     id: "database",

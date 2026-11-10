@@ -14,7 +14,7 @@ function projectTags(project) {
   const tags = [];
   const backendOnly = project.category.toLowerCase().startsWith("backend");
   if (has("react", "next.js") && !has("flutter") && !backendOnly) tags.push("web");
-  if (has("node.js", "express", "laravel")) tags.push("backend");
+  if (has("node.js", "nestjs", "express", "laravel")) tags.push("backend");
   if (has("flutter")) tags.push("mobile");
   return tags;
 }

@@ -35,7 +35,7 @@ export const strings = {
       keys: "keys",
       facts: {
         education: ["Computer Engineering", "Academic foundation in software, systems, and engineering problem-solving."],
-        full_stack: ["Full-Stack Development", "Building modern web experiences with React, Node.js, Laravel, and more."],
+        full_stack: ["Full-Stack Development", "Building modern web experiences with React, Next.js, Node.js, NestJS, Laravel, and more."],
         backend: ["Backend Focus", "REST APIs, authentication, databases, architecture, and scalable application logic."],
         approach: ["Problem Solving", "Turning requirements and real-world needs into practical digital solutions."],
       },
@@ -184,7 +184,7 @@ export const strings = {
       keys: "مفاتيح",
       facts: {
         education: ["هندسة الحاسوب", "أساس أكاديمي في البرمجيات والأنظمة وحل المشكلات الهندسية."],
-        full_stack: ["تطوير Full-Stack", "بناء تجارب ويب حديثة باستخدام React وNode.js وLaravel وغيرها."],
+        full_stack: ["تطوير Full-Stack", "بناء تجارب ويب حديثة باستخدام React وNext.js وNode.js وNestJS وLaravel وغيرها."],
         backend: ["تركيز على الـ Backend", "REST APIs، المصادقة، قواعد البيانات، البنية المعمارية، ومنطق تطبيقات قابل للتوسع."],
         approach: ["حل المشكلات", "تحويل المتطلبات والاحتياجات الواقعية إلى حلول رقمية عملية."],
       },
